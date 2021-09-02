@@ -1,9 +1,13 @@
+[ -x "$(command -v nvim)" ] && EDITOR="nvim" || EDITOR="vim"
+export LESSHISTFILE="-"
+export ZDOTDIR="$HOME/.config/zsh"
+
 ## aliases
 
 ## general
 alias s="sudo"
-alias v="vim"
-alias sv="sudo vim"
+alias v="${EDITOR}"
+alias sv="sudo ${EDITOR}"
 alias stow="stow -t ~/ -v --ignore '.DS_Store' --ignore '.git'"
 alias wttr="curl https://www.wttr.in"
 alias la="ls -la"
@@ -32,8 +36,8 @@ setopt autocd	# automatically cd into typed directory.
 HISTSIZE=10000000
 SAVEHIST=10000000
 HISTDIR=~/.cache/zsh
-HISTFILE=$HISTDIR/history
-[[ ! -f $HISTFILE ]] && mkdir -p $HISTDIR; touch $HISTDIR/history
+HISTFILE="$HISTDIR/history"
+[ ! -f $HISTFILE ] && mkdir -p $HISTDIR; touch $HISTDIR/history
 
 ## basic auto/tab complete
 autoload -U compinit
@@ -43,13 +47,11 @@ compinit
 _comp_options+=(globdots)	# include hidden files.
 
 ## load plugins
-ZSHDIR=~/.config/zsh
-
-if [ ! -d $ZSHDIR/zsh-autosuggestions ] && [ -x "$(command -v git)" ]; then
-	mkdir -p $ZSHDIR
-	git clone https://github.com/zsh-users/zsh-autosuggestions $ZSHDIR/zsh-autosuggestions
-	git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZSHDIR/zsh-syntax-highlighting
+if [ ! -d $ZDOTDIR/zsh-autosuggestions ] && [ -x "$(command -v git)" ]; then
+	mkdir -p $ZDOTDIR
+	git clone https://github.com/zsh-users/zsh-autosuggestions $ZDOTDIR/zsh-autosuggestions
+	git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZDOTDIR/zsh-syntax-highlighting
 fi
 
-source $ZSHDIR/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $ZSHDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $ZDOTDIR/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $ZDOTDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
