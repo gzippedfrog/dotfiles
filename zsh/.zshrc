@@ -4,7 +4,7 @@
 alias s="sudo"
 alias v="vim"
 alias sv="sudo vim"
-alias stow="stow -t ~/ -v --ignore '.DS_Store'"
+alias stow="stow -t ~/ -v --ignore '.DS_Store' --ignore '.git'"
 alias wttr="curl https://www.wttr.in"
 alias la="ls -la"
 
@@ -49,9 +49,7 @@ if [ ! -d $ZSHDIR/zsh-autosuggestions ] && [ -x "$(command -v git)" ]; then
 	mkdir -p $ZSHDIR
 	git clone https://github.com/zsh-users/zsh-autosuggestions $ZSHDIR/zsh-autosuggestions
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZSHDIR/zsh-syntax-highlighting
-	# git clone https://github.com/olets/zsh-alias $ZSHDIR/zsh-alias 
 fi
 
 source $ZSHDIR/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $ZSHDIR/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# source $ZSHDIR/zsh-alias/zsh-alias.zsh
