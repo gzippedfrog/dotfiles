@@ -6,8 +6,7 @@ else
 end
 
 set LESSHISTFILE -
-# set XDG_CONFIG_HOME ~/.config
-# set GIT_CONFIG_GLOBAL ~/.config/git/config
+
 ## aliases
 
 ## general
@@ -31,3 +30,7 @@ alias la="ls -la"
 # alias reb="systemctl reboot"
 # alias susp="systemctl suspend"
 # alias bios="systemctl reboot --firmware-setup"
+
+if status --is-interactive
+    abbr --add --global stowdir ~/.config/stow
+end
