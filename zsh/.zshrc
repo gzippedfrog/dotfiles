@@ -1,35 +1,13 @@
-[ -x "$(command -v nvim)" ] && EDITOR="nvim" || EDITOR="vim" # prefer neovim to regular vim
 export LESSHISTFILE="-"
 export ZDOTDIR="$HOME/.config/zsh"
 
-## aliases
-
-## general
-alias s="sudo"
-alias v="${EDITOR}"
-alias sv="sudo ${EDITOR}"
-alias stow="stow -t ~/ -v --ignore '.DS_Store' --ignore '.git'"
-alias wttr="curl https://www.wttr.in"
-alias la="ls -la"
-
-## pacman
-#alias p="sudo pacman"
-#alias upg="sudo pacman -Syu"
-
-## apt
-#alias ap="sudo apt"
-#alias upg="sudo apt update && sudo apt upgrade"
-
-## soystemd 
-#alias off="systemctl poweroff"
-#alias reb="systemctl reboot"
-#alias sus="systemctl suspend"
-#alias bios="systemctl reboot --firmware-setup"
+[ -x "$(command -v nvim)" ] && EDITOR="nvim" || EDITOR="vim" # prefer neovim to regular vim
+source ~/.config/aliasrc # load aliases if present
 
 ## enable colors and change prompt
 autoload -U colors && colors	# load colors
-#PS1="%{$fg[green]%}%~%{$reset_color%}> "
-PS1="%B%{$fg[green]%}%n@%M%{$fg[white]%}:%{$fg[blue]%}%~%{$reset_color%}$ "
+PS1="[%{$fg[green]%}%~%{$reset_color%}] "
+# PS1="%B%{$fg[green]%}%n@%M%{$fg[white]%}:%{$fg[blue]%}%~%{$reset_color%}$ "
 setopt autocd	# automatically cd into typed directory.
 
 ## history in cache directory

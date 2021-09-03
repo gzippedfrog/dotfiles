@@ -1,0 +1,26 @@
+#!/bin/sh
+
+## aliases
+alias \
+
+## general
+s="sudo" \
+v="${EDITOR}" \
+sv="sudo ${EDITOR}" \
+stow="stow -t ~/ -v --ignore '.DS_Store' --ignore '.git'" \
+wttr="curl https://www.wttr.in" \
+la="ls -la" 
+
+## pacman
+#p="sudo pacman" \
+#upg="sudo pacman -Syu" \
+
+## apt
+#ap="sudo apt" \
+#upg="sudo apt update && sudo apt upgrade" \
+
+## soystemd 
+#off="systemctl poweroff" \
+#reb="systemctl reboot" \
+#susp="systemctl suspend" \
+#bios="systemctl reboot --firmware-setup"
