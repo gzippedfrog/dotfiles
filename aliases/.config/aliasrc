@@ -1,26 +1,30 @@
 #!/bin/sh
 
-## aliases
-alias \
+# prefer neovim to vim if present
+[ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
 
 ## general
+alias \
 s="sudo" \
-v="${EDITOR}" \
+v=${EDITOR} \
 sv="sudo ${EDITOR}" \
 stow="stow -t ~/ -v --ignore '.DS_Store' --ignore '.git'" \
 wttr="curl https://www.wttr.in" \
-la="ls -la" 
+la="ls -Galh"
 
 ## pacman
-#p="sudo pacman" \
-#upg="sudo pacman -Syu" \
+# alias \
+# p="sudo pacman" \
+# upg="sudo pacman -Syu" \
 
 ## apt
-#ap="sudo apt" \
-#upg="sudo apt update && sudo apt upgrade" \
+# alias \
+# ap="sudo apt" \
+# upg="sudo apt update && sudo apt upgrade" \
 
 ## soystemd 
-#off="systemctl poweroff" \
-#reb="systemctl reboot" \
-#susp="systemctl suspend" \
-#bios="systemctl reboot --firmware-setup"
+# alias \
+# off="systemctl poweroff" \
+# reb="systemctl reboot" \
+# susp="systemctl suspend" \
+# bios="systemctl reboot --firmware-setup"

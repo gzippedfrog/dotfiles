@@ -5,7 +5,10 @@ else
     set EDITOR "vim" 
 end
 
+set TEST "a"
 set LESSHISTFILE -
+set TEST $TEST "b"
+set PATH $PATH ~/.local/bin
 
 ## aliases
 

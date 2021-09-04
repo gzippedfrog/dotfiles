@@ -1,7 +1,6 @@
 export LESSHISTFILE="-"
 export ZDOTDIR="$HOME/.config/zsh"
 
-[ -x "$(command -v nvim)" ] && EDITOR="nvim" || EDITOR="vim" # prefer neovim to regular vim
 source ~/.config/aliasrc # load aliases if present
 
 ## enable colors and change prompt
@@ -24,9 +23,13 @@ zmodload zsh/complist
 compinit
 _comp_options+=(globdots)		# include hidden files
 
-## emacs-like movement for macOS
+## emacs-like movement
 bindkey "ƒ" forward-word
 bindkey "∫" backward-word
+
+## history search with Shift + Up/Down
+bindkey ";2A" history-beginning-search-backward
+bindkey ";2B" history-beginning-search-forward
 
 ## load plugins
 if [ ! -d $ZDOTDIR/zsh-autosuggestions ] && [ -x "$(command -v git)" ]; then
