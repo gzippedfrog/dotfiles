@@ -1,1 +1,1 @@
-./neovim/.config/nvim/init.vim
+/Users/gzfrog/.config/stow/neovim/.config/nvim/init.vim
