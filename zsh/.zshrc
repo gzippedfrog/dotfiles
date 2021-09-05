@@ -8,7 +8,7 @@ source ~/.config/aliasrc # load aliases if present
 bindkey -e
 ## enable colors and change prompt
 autoload -U colors && colors	# load colors
-PS1="[%{$fg[cyan]%}%~%{$reset_color%}] "
+PS1="[%{$fg[blue]%}%~%{$reset_color%}] "
 # PS1="%B%{$fg[green]%}%n@%M%{$fg[white]%}:%{$fg[blue]%}%~%{$reset_color%}$ "
 setopt autocd	# automatically cd into typed directory.
 
