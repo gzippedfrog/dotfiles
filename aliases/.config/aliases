@@ -1,0 +1,25 @@
+#!/bin/sh
+
+## general
+alias s="sudo"
+alias v=${EDITOR}
+alias sv="sudo ${EDITOR}"
+alias stow="stow -t ~/ -v --ignore '.DS_Store'"
+alias wttr="curl https://www.wttr.in"
+
+alias la="ls -hla --color=auto --group-directories-first" # Linux
+#alias la="ls -hlaG" # MacOS
+
+## pacman
+# alias p="sudo pacman"
+# alias upg="sudo pacman -Syu"
+
+## apt
+alias ap="sudo apt"
+alias upg="sudo apt update && sudo apt upgrade"
+
+## soystemd 
+alias off="systemctl poweroff"
+alias reb="systemctl reboot"
+alias susp="systemctl suspend"
+alias bios="systemctl reboot --firmware-setup"

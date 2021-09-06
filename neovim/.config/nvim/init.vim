@@ -4,6 +4,7 @@ set shiftwidth=4
 syntax on
 set bg=dark
 set mouse=a
+set number
 
 nnoremap S :%s//g<Left><Left>
 
