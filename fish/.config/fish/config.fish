@@ -6,10 +6,8 @@ else
 end
 
 set LESSHISTFILE -
-set PATH $PATH ~/.local/bin
+set PATH $PATH:(find ~/.local/bin -maxdepth 1 -type d -printf ":%p")
+
+set XDG_DATA_DIRS $XDG_DATA_DIRS:/var/lib/flatpak/exports/share:/home/gzfrog/.local/share/flatpak/exports/share
 
 source ~/.config/aliases
-
-if status --is-interactive
-    abbr --add --global stowdir ~/.config/stow
-end
