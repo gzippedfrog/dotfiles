@@ -16,7 +16,7 @@ alias la="ls -hla --color=auto --group-directories-first" # Linux
 
 ## apt
 alias ap="sudo apt"
-alias upg="sudo apt update && sudo apt upgrade"
+alias upg="sudo apt update && sudo apt upgrade; flatpak update; sudo snap refresh"
 
 ## soystemd 
 alias off="systemctl poweroff"
