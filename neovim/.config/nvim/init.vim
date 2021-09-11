@@ -19,8 +19,7 @@ map <leader>h :Sexplore<Return>
 	set splitbelow splitright
 
 " Toggle text highlight
-	let hlstate=0
-	nnoremap <leader>s :if (hlstate == 0) \| nohlsearch \| else \| set hlsearch \| endif \| let hlstate=1-hlstate<cr>
+	noremap <leader>s :set hlsearch! hlsearch?<CR>
 
 " Replace all is aliased to S.
 	nnoremap S :%s//g<Left><Left>
