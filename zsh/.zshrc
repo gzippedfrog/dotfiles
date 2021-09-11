@@ -55,8 +55,8 @@ echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 ## history search with Shift + Up/Down
-bindkey ";2A" history-beginning-search-backward
-bindkey ";2B" history-beginning-search-forward
+bindkey "K" history-beginning-search-backward
+bindkey "J" history-beginning-search-forward
 
 ## load plugins
 if [ ! -d $ZDOTDIR/zsh-autosuggestions ] && [ -x "$(command -v git)" ]; then
