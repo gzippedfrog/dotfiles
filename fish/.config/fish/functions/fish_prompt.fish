@@ -70,11 +70,13 @@ function fish_prompt --description 'Write out the prompt'
     end
 
     # PWD
+	echo -n [
     set_color $color_cwd
     echo -n (prompt_pwd)
     set_color normal
+	echo -n ]
 
-    printf '%s ' (fish_vcs_prompt)
+    printf '%s' (fish_vcs_prompt)
 
     set -l pipestatus_string (__fish_print_pipestatus "[" "] " "|" (set_color $fish_color_status) (set_color --bold $fish_color_status) $last_pipestatus)
     echo -n $pipestatus_string
