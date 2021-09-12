@@ -1,6 +1,6 @@
 export LESSHISTFILE="-"
 export ZDOTDIR="$HOME/.config/zsh"
-export PATH=$PATH:$(find ~/.local/bin -maxdepth 1 -type d -printf ":%p")
+export PATH=$PATH:$(find ~/.local/bin -maxdepth 1 -type d -printf ":%p") 2>/dev/null
 #export XDG_DATA_DIRS="/usr/share/ubuntu/:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop"
 export XDG_DATA_DIRS="$XDG_DATA_DIRS:/var/lib/flatpak/exports/share:/home/gzfrog/.local/share/flatpak/exports/share"
 [ -x "$(command -v nvim)" ] && export EDITOR="nvim" || export EDITOR="vim"
