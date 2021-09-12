@@ -1,16 +1,17 @@
 export LESSHISTFILE="-"
 export ZDOTDIR="$HOME/.config/zsh"
-export PATH=$PATH:$(find ~/.local/bin -maxdepth 1 -type d -printf ":%p") 2>/dev/null
-#export XDG_DATA_DIRS="/usr/share/ubuntu/:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop"
-export XDG_DATA_DIRS="$XDG_DATA_DIRS:/var/lib/flatpak/exports/share:/home/gzfrog/.local/share/flatpak/exports/share"
+
 [ -x "$(command -v nvim)" ] && export EDITOR="nvim" || export EDITOR="vim"
 
-source ~/.config/aliases # load aliases if present
+# Linux specific
+export PATH=$PATH:$(find ~/.local/bin -maxdepth 2 -type d | tr '\n' ':') #2>/dev/null
+export XDG_DATA_DIRS="$XDG_DATA_DIRS:/var/lib/flatpak/exports/share:/home/gzfrog/.local/share/flatpak/exports/share"
+[ -f "~/.config/aliases" ] && source ~/.config/aliases # load aliases if present
+
 
 # enable colors and change prompt
 autoload -U colors && colors	# load colors
 PS1="[%B%{$fg[green]%}%~%{$reset_color%}]$ "
-# PS1="%B%{$fg[green]%}%n@%M%{$fg[white]%}:%{$fg[blue]%}%~%{$reset_color%}$ "
 setopt autocd	# automatically cd into typed directory.
 
 # history in cache directory
