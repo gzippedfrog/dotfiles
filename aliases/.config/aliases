@@ -3,12 +3,9 @@
 ## general
 alias s="sudo"
 alias v=$EDITOR
-alias sv="sudo $EDITOR"
-alias stow="stow -t ~/ -v --ignore '.DS_Store'"
-alias wttr="curl https://www.wttr.in"
-
-alias la="ls -hla --color=auto --group-directories-first" # Linux
-#alias la="ls -hlaG" # MacOS
+alias sv="sudo -e"
+alias stow="stow -t ~/ -v"
+alias la="ls -hla --color=auto --group-directories-first"
 
 ## pacman
 # alias p="sudo pacman"
@@ -18,7 +15,7 @@ alias la="ls -hla --color=auto --group-directories-first" # Linux
 alias ap="sudo apt"
 alias upg="sudo apt update && sudo apt upgrade; flatpak update; sudo snap refresh"
 
-## soystemd 
+## soystemd
 alias off="systemctl poweroff"
 alias reb="systemctl reboot"
 alias susp="systemctl suspend"

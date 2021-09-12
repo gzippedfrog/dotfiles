@@ -7,20 +7,20 @@ export XDG_DATA_DIRS="$XDG_DATA_DIRS:/var/lib/flatpak/exports/share:/home/gzfrog
 
 source ~/.config/aliases # load aliases if present
 
-## enable colors and change prompt
+# enable colors and change prompt
 autoload -U colors && colors	# load colors
 PS1="[%B%{$fg[green]%}%~%{$reset_color%}]$ "
 # PS1="%B%{$fg[green]%}%n@%M%{$fg[white]%}:%{$fg[blue]%}%~%{$reset_color%}$ "
 setopt autocd	# automatically cd into typed directory.
 
-## history in cache directory
+# history in cache directory
 HISTSIZE=10000000
 SAVEHIST=10000000
 HISTDIR=~/.cache/zsh
 HISTFILE="$HISTDIR/history"
 [ ! -f $HISTFILE ] && mkdir -p $HISTDIR; touch $HISTDIR/history
 
-## basic auto/tab complete
+# basic auto/tab complete
 autoload -U compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
@@ -31,14 +31,14 @@ _comp_options+=(globdots)		# include hidden files
 bindkey -v
 export KEYTIMEOUT=1
 
-# Use vim keys in tab complete menu:
+# use vim keys in tab complete menu:
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^?' backward-delete-char
 
-# Change cursor shape for different vi modes.
+# change cursor shape for different vi modes.
 function zle-keymap-select () {
     case $KEYMAP in
         vicmd) echo -ne '\e[1 q';;      # block
@@ -54,11 +54,15 @@ zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
-## history search
+# history search
 bindkey "K" history-beginning-search-backward
 bindkey "J" history-beginning-search-forward
 
-## load plugins
+# edit line in vim with ctrl-e:
+autoload edit-command-line; zle -N edit-command-line
+bindkey '^e' edit-command-line
+
+# load plugins
 if [ ! -d $ZDOTDIR/zsh-autosuggestions ] && [ -x "$(command -v git)" ]; then
 	mkdir -p $ZDOTDIR
 	git clone https://github.com/zsh-users/zsh-autosuggestions $ZDOTDIR/zsh-autosuggestions
