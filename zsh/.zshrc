@@ -1,10 +1,8 @@
-export LESSHISTFILE=-
-export ZDOTDIR=$HOME/.config/zsh
-export XDG_DATA_DIRS=$XDG_DATA_DIRS:/var/lib/flatpak/exports/share:/home/gzfrog/.local/share/flatpak/exports/share
-
-[ -x "$(command -v nvim)" ] && export EDITOR="nvim" || export EDITOR="vim"
+export ZDOTDIR=~/.config/zsh
+export XDG_DATA_DIRS=$XDG_DATA_DIRS:/var/lib/flatpak/exports/share:~/local/share/flatpak/exports/share
 
 [ -e ~/.local/bin ] && export PATH=$PATH:$(find ~/.local/bin -maxdepth 2 -type d | tr '\n' ':')
+[ -x "$(command -v nvim)" ] && export EDITOR="nvim" || export EDITOR="vim"
 [ -e ~/.config/aliases ] && source ~/.config/aliases
 
 # enable colors and change prompt
