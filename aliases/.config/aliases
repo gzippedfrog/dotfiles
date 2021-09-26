@@ -6,7 +6,7 @@ alias v=$EDITOR
 alias sv="sudo -e"
 alias stow="stow -t ~/ -v"
 alias la="ls -hla --color=auto --group-directories-first"
-
+alias lsblk="lsblk | grep -v '^loop'"
 ## pacman
 # alias p="sudo pacman"
 # alias upg="sudo pacman -Syu"
