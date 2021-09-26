@@ -27,8 +27,8 @@ _comp_options+=(globdots)		# include hidden files
 bindkey -e
 
 # history search
-bindkey "^[f" history-beginning-search-backward
-bindkey "^[b" history-beginning-search-forward
+bindkey "^[F" history-beginning-search-backward
+bindkey "^[B" history-beginning-search-forward
 
 # load plugins
 if [ ! -d $ZDOTDIR/zsh-autosuggestions ] && [ -x "$(command -v git)" ]; then
