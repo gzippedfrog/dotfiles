@@ -4,9 +4,10 @@
 alias s="sudo"
 alias v=$EDITOR
 alias sv="sudo -e"
-alias stow="stow -t ~/ -v"
+#alias stow="stow -t ~/ -v"
 alias la="ls -hla --color=auto --group-directories-first"
 alias lsblk="lsblk | grep -v '^loop'"
+
 ## pacman
 # alias p="sudo pacman"
 # alias upg="sudo pacman -Syu"
@@ -14,6 +15,7 @@ alias lsblk="lsblk | grep -v '^loop'"
 ## apt
 alias ap="sudo apt"
 alias upg="sudo apt update && sudo apt upgrade; flatpak update; sudo snap refresh"
+alias rmo="sudo apt autoremove"
 
 ## soystemd
 alias off="systemctl poweroff"
