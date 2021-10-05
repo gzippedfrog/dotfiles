@@ -9,16 +9,17 @@ alias la="ls -hla --color=auto --group-directories-first"
 alias lsblk="lsblk | grep -v '^loop'"
 
 ## pacman
-# alias p="sudo pacman"
-# alias upg="sudo pacman -Syu"
+alias p="sudo pacman"
+alias upg="sudo pacman -Syu"
+alias rmo="sudo pacman -Rs $(pacman -Qqtd)"
 
 ## apt
-alias ap="sudo apt"
-alias upg="sudo apt update && sudo apt upgrade; flatpak update; sudo snap refresh"
-alias rmo="sudo apt autoremove"
+#alias ap="sudo apt"
+#alias upg="sudo apt update && sudo apt upgrade; flatpak update; sudo snap refresh"
+#alias rmo="sudo apt autoremove"
 
 ## soystemd
 alias off="systemctl poweroff"
 alias reb="systemctl reboot"
 alias susp="systemctl suspend"
-alias bios="systemctl reboot --firmware-setup"
+alias uefi="systemctl reboot --firmware-setup"

@@ -1,5 +1,5 @@
 export ZDOTDIR=~/.config/zsh
-export XDG_DATA_DIRS=$XDG_DATA_DIRS:/var/lib/flatpak/exports/share:~/local/share/flatpak/exports/share
+export XDG_DATA_DIRS=$XDG_DATA_DIRS:/var/lib/flatpak/exports/share:~/.local/share/flatpak/exports/share
 
 [ -e ~/.local/bin ] && export PATH=$PATH:$(find ~/.local/bin -maxdepth 2 -type d | tr '\n' ':')
 [ -x "$(command -v nvim)" ] && export EDITOR="nvim" || export EDITOR="vim"
