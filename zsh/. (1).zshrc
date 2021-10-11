@@ -24,8 +24,6 @@ zmodload zsh/complist
 compinit
 _comp_options+=(globdots)		# include hidden files
 
-#bindkey -e
-
 # vi mode
 bindkey -v
 export KEYTIMEOUT=1
@@ -54,8 +52,8 @@ echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 # history search
-bindkey "^[k" history-beginning-search-backward
-bindkey "^[j" history-beginning-search-forward
+bindkey "K" history-beginning-search-backward
+bindkey "J" history-beginning-search-forward
 
 # load plugins
 if [ ! -d $ZDOTDIR/zsh-autosuggestions ] && [ -x "$(command -v git)" ]; then
