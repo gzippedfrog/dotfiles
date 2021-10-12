@@ -1,4 +1,5 @@
-export ZDOTDIR=~/.config/zsh
+unsetopt PROMPT_SP
+ZDOTDIR=~/.config/zsh
 export XDG_DATA_DIRS=$XDG_DATA_DIRS:/var/lib/flatpak/exports/share:~/.local/share/flatpak/exports/share
 
 [ -e ~/.local/bin ] && export PATH=$PATH:$(find ~/.local/bin -maxdepth 2 -type d | tr '\n' ':')
@@ -24,7 +25,7 @@ zmodload zsh/complist
 compinit
 _comp_options+=(globdots)		# include hidden files
 
-#bindkey -e
+bindkey -e
 
 # vi mode
 bindkey -v

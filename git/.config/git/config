@@ -1,5 +1,0 @@
-[user]
-	name = gzippedfrog
-	email = gzippedfrog@outlook.com
-[core]
-	excludesfile = ~/.config/git/gitignore
