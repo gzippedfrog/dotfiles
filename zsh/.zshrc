@@ -1,36 +1,13 @@
-ZDOTDIR=~/.config/zsh
 export XDG_DATA_DIRS=$XDG_DATA_DIRS:/var/lib/flatpak/exports/share:~/.local/share/flatpak/exports/share
 
 [ -e ~/.local/bin ] && export PATH=$PATH:$(find ~/.local/bin -maxdepth 2 -type d | tr '\n' ':')
 [ -x "$(command -v nvim)" ] && export EDITOR="nvim" || export EDITOR="vim"
 [ -e ~/.config/aliases ] && source ~/.config/aliases
 
-# load plugins and theme
-if [ ! -d $ZDOTDIR/zgen ] && [ -x "$(command -v git)" ]; then
-	mkdir -p $ZDOTDIR/zgen
-	git clone https://github.com/tarjoilija/zgen.git $ZDOTDIR/zgen
-fi
-
-export ZGEN_DIR=$ZDOTDIR/zgen
-
-source $ZDOTDIR/zgen/zgen.zsh
-
-if ! zgen saved; then
-
-  zgen oh-my-zsh
-  #zgen oh-my-zsh themes/fwalch
-  zgen oh-my-zsh themes/robbyrussell
-  zgen oh-my-zsh plugins/command-not-found
-  zgen load zdharma/fast-syntax-highlighting
-  zgen load zsh-users/zsh-autosuggestions
-
-  zgen save
-fi
-
 # enable colors and change prompt
-#autoload -U colors && colors	# load colors
-#PS1="[%B%{$fg[green]%}%~%{$reset_color%}]$ "
-#setopt autocd	# automatically cd into typed directory.
+autoload -U colors && colors	# load colors
+PS1="[%B%{$fg[green]%}%~%{$reset_color%}]$ "
+setopt autocd	# automatically cd into typed directory.
 unsetopt PROMPT_SP
 
 # history in cache directory
@@ -80,3 +57,14 @@ preexec() { echo -ne '\e[6 q' ;} # Use beam shape cursor for each new prompt.
 # history search
 bindkey "^[k" history-beginning-search-backward
 bindkey "^[j" history-beginning-search-forward
+
+# load plugins
+ZDOTDIR=~/.config/zsh
+if [ ! -d $ZDOTDIR/zsh-autosuggestions ] && [ -x "$(command -v git)" ]; then
+	mkdir -p $ZDOTDIR
+	git clone https://github.com/zsh-users/zsh-autosuggestions $ZDOTDIR/zsh-autosuggestions
+	git clone https://github.com/zdharma/fast-syntax-highlighting $ZDOTDIR/fast-syntax-highlighting
+fi
+
+source $ZDOTDIR/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $ZDOTDIR/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh

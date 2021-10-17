@@ -7,6 +7,7 @@ alias sv="sudo -e"
 #alias stow="stow -t ~/ -v"
 alias la="ls -hla --color=auto --group-directories-first"
 alias lsblk="lsblk | grep -v '^loop'"
+alias gdc="git commit -m \"some changes\""
 
 ## pacman
 alias p="sudo pacman"
