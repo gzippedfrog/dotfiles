@@ -6,7 +6,7 @@ export XDG_DATA_DIRS=$XDG_DATA_DIRS:/var/lib/flatpak/exports/share:~/.local/shar
 
 # enable colors and change prompt
 autoload -U colors && colors	# load colors
-PS1="[%B%{$fg[green]%}%~%{$reset_color%}]$ "
+PS1="%B%{$fg[green]%}%~%{$reset_color%} $ "
 setopt autocd	# automatically cd into typed directory.
 unsetopt PROMPT_SP
 
@@ -24,8 +24,7 @@ zmodload zsh/complist
 compinit
 _comp_options+=(globdots)		# include hidden files
 
-# correct spelling
-setopt correct
+setopt correct # correct spelling
 
 # vi mode
 bindkey -v
@@ -37,6 +36,7 @@ bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^W' backward-kill-word
+bindkey -v '^?' backward-delete-char
 
 # Change cursor shape for different vi modes.
 function zle-keymap-select () {
