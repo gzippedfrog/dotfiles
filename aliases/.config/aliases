@@ -4,20 +4,21 @@
 alias s="sudo"
 alias v=$EDITOR
 alias sv="sudo -e"
-#alias stow="stow -t ~/ -v"
+alias stow="stow -t ~/ -v"
 alias la="ls -hla --color=auto --group-directories-first"
 alias lsblk="lsblk | grep -v '^loop'"
 alias gdc="git commit -m \"some changes\""
 
 ## pacman
-alias p="sudo pacman"
-alias upg="sudo pacman -Syu"
-alias rmo="sudo pacman -Rs $(pacman -Qqtd)"
+#alias p="sudo pacman"
+#alias upg="sudo pacman -Syu"
+#alias rmo="sudo pacman -Rs $(pacman -Qqtd)"
 
 ## apt
-#alias ap="sudo apt"
-#alias upg="sudo apt update && sudo apt upgrade; flatpak update; sudo snap refresh"
-#alias rmo="sudo apt autoremove"
+alias ap="sudo apt"
+alias in="sudo apt install"
+alias upg="sudo apt update && sudo apt upgrade"
+alias rmo="sudo apt autoremove"
 
 ## soystemd
 alias off="systemctl poweroff"

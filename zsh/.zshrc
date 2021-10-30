@@ -60,11 +60,11 @@ bindkey "^[j" history-beginning-search-forward
 
 # load plugins
 ZDOTDIR=~/.config/zsh
-if [ ! -d $ZDOTDIR/zsh-autosuggestions ] && [ -x "$(command -v git)" ]; then
+if [ ! -d $ZDOTDIR/autosuggestions ] && [ -x "$(command -v git)" ]; then
 	mkdir -p $ZDOTDIR
-	git clone https://github.com/zsh-users/zsh-autosuggestions $ZDOTDIR/zsh-autosuggestions
-	git clone https://github.com/zdharma/fast-syntax-highlighting $ZDOTDIR/fast-syntax-highlighting
+	git clone https://github.com/zsh-users/zsh-autosuggestions $ZDOTDIR/autosuggestions
+	git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZDOTDIR/syntax-highlighting
 fi
 
-source $ZDOTDIR/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $ZDOTDIR/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
+source $ZDOTDIR/autosuggestions/zsh-autosuggestions.zsh
+source $ZDOTDIR/syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
