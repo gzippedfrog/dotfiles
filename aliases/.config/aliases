@@ -15,10 +15,13 @@ alias gdc="git commit -m \"some changes\""
 #alias rmo="sudo pacman -Rs $(pacman -Qqtd)"
 
 ## apt
-alias ap="sudo apt"
-alias in="sudo apt install"
-alias upg="sudo apt update && sudo apt upgrade"
-alias rmo="sudo apt autoremove"
+#alias ap="sudo apt"
+#alias in="sudo apt install"
+#alias upg="sudo apt update && sudo apt upgrade"
+#alias rmo="sudo apt autoremove"
+
+# zypper
+alias zp="sudo zypper"
 
 ## soystemd
 alias off="systemctl poweroff"
