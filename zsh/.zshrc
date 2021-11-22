@@ -26,6 +26,8 @@ _comp_options+=(globdots)		# include hidden files
 
 setopt correct # correct spelling
 
+#bindkey -e
+
 # vi mode
 bindkey -v
 export KEYTIMEOUT=1
@@ -63,8 +65,8 @@ ZDOTDIR=~/.config/zsh
 if [ ! -d $ZDOTDIR/autosuggestions ] && [ -x "$(command -v git)" ]; then
 	mkdir -p $ZDOTDIR
 	git clone https://github.com/zsh-users/zsh-autosuggestions $ZDOTDIR/autosuggestions
-	git clone https://github.com/zsh-users/zsh-syntax-highlighting $ZDOTDIR/syntax-highlighting
+	git clone https://github.com/zdharma-continuum/fast-syntax-highlighting $ZDOTDIR/fast-syntax-highlighting
 fi
 
 source $ZDOTDIR/autosuggestions/zsh-autosuggestions.zsh
-source $ZDOTDIR/syntax-highlighting/zsh-syntax-highlighting.plugin.zsh
+source $ZDOTDIR/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
