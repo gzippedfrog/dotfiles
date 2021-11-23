@@ -1,0 +1,94 @@
+=== SYSTEM INFORMATION:
+Quod Libet 4.4.0
+Mutagen 1.45.1
+Python 3.9.7 (default, Aug 31 2021, 13:28:12) 
+[GCC 11.1.0] linux
+Platform Linux-5.14.9-arch2-1-x86_64-with-glibc2.33
+=== STACK TRACE
+
+Traceback (most recent call last):
+
+  File "/usr/lib/python3.9/site-packages/quodlibet/ext/events/waveformseekbar.py", line 208, in _on_song_started
+    self._create_waveform(player.info, CONFIG.max_data_points)
+
+  File "/usr/lib/python3.9/site-packages/quodlibet/ext/events/waveformseekbar.py", line 110, in _create_waveform
+    pipeline = Gst.parse_launch(command)
+
+gi.repository.GLib.GError: gst_parse_error: no element "level" (1)
+
+=== LOG:
+D: 0.896: util.importhelper.get_importables: Ignoring '/usr/lib/python3.9/site-packages/quodlibet/ext/songsmenu/brainz/__pycache__'
+D: 0.896: util.importhelper.get_importables: Ignoring '/usr/lib/python3.9/site-packages/quodlibet/ext/songsmenu/fingerprint/__pycache__'
+D: 0.896: util.importhelper.get_importables: Ignoring '/usr/lib/python3.9/site-packages/quodlibet/ext/playlist/__pycache__'
+D: 0.896: util.importhelper.get_importables: Ignoring '/usr/lib/python3.9/site-packages/quodlibet/ext/gstreamer/__pycache__'
+D: 0.896: util.importhelper.get_importables: Ignoring '/usr/lib/python3.9/site-packages/quodlibet/ext/covers/__pycache__'
+D: 0.897: util.importhelper.get_importables: Ignoring '/usr/lib/python3.9/site-packages/quodlibet/ext/query/__pycache__'
+D: 1.283: ModuleScanner.rescan: Rescanning done: 88 added, 0 removed, 13 error(s)
+D: 1.285: PluginManager.rescan: Rescanning done.
+D: 1.285: PluginManager.register_handler: Registering handler: 'EditTagsPluginHandler'
+D: 1.285: PluginManager.register_handler: Registering handler: 'RenameFilesPluginHandler'
+D: 1.286: PluginManager.register_handler: Registering handler: 'TagsFromPathPluginHandler'
+D: 1.286: PluginManager.register_handler: Registering handler: 'GStreamerPlayer'
+D: 1.286: PluginManager.register_handler: Registering handler: 'SongsMenuPluginHandler'
+D: 1.287: PluginManager.register_handler: Registering handler: 'CoverPluginHandler'
+D: 1.287: PluginManager.register_handler: Registering handler: 'PlaylistPluginHandler'
+D: 1.287: PluginManager.register_handler: Registering handler: 'QueryPluginHandler'
+D: 1.331: PluginManager.register_handler: Registering handler: 'PluggableOrders'
+D: 1.332: PluginManager.register_handler: Registering handler: 'PluggableOrders'
+D: 1.333: qltk.playorder.__compose_order: Updating PlaylistModel order to <Random>
+D: 1.347: GStreamerPlayer.go_to: Going to None
+D: 1.347: PlaylistMux.go_to: Told to go to None
+D: 1.347: QueueModel.go_to: Told to go to None
+D: 1.347: PlaylistModel.go_to: Told to go to None
+D: 1.348: AlbumLibrary.__init__: Initializing Album Library to watch 'main'
+D: 1.412: Query.__init__: Creating query ''
+D: 1.413: Query.__init__: Creating query ''
+D: 1.413: Query.__init__: Creating query ''
+D: 1.417: qltk.window.__restore_state: Restore state
+D: 1.417: qltk.window.__restore_position: Restore position
+D: 1.417: qltk.window.__restore_size: Restore size
+D: 1.417: PluginManager.register_handler: Registering handler: 'EventPluginHandler'
+D: 1.417: PluginManager.enable: Enable 'View Lyrics'
+D: 1.420: PluginManager.enable: Enable 'QLScrobbler'
+D: 1.422: QLScrobbler.enabled: Plugin enabled - accepting new songs.
+D: 1.422: PluginManager.enable: Enable 'WaveformSeekBar'
+D: 1.423: PluginManager.enable: Enable 'mpris'
+D: 1.424: PluginManager.register_handler: Registering handler: 'UserInterfacePluginHandler'
+D: 1.424: UserInterfacePluginHandler.plugin_enable: Enabling sidebar for <class 'quodlibet.fake.plugins.viewlyrics.ViewLyrics'>
+D: 1.424: QuodLibetWindow.add_sidebar_to_layout: Recreating sidebar
+D: 1.427: mmkeys.find_active_backend: Trying to find a mmkeys backend
+D: 1.441: session.init: Trying GnomeSessionClient
+D: 1.441: GnomeSessionClient.open: Connecting with gnome session manager
+D: 1.443: session.init: org.gnome.SessionManager unowned
+D: 1.444: session.init: Trying XfceSessionClient
+D: 1.444: XfceSessionClient.open: Connecting with gnome session manager
+D: 1.445: session.init: org.xfce.SessionManager unowned
+D: 1.448: session.init: Trying XSMPSessionClient
+D: 1.450: XSMPSessionClient.open: Connecting with XSMP
+D: 1.450: XSMPSessionClient.open: Connected. Client ID: 101aa1c4fe14a000163377798100000005310016
+D: 1.450: _main.run: Entering quodlibet.main
+D: 1.658: PlaylistModel.set: Filling view model with 10 songs.
+D: 1.659: GStreamerPlayer.go_to: Going to '/mnt/windata/Users/gzfrog/Music/KEYGEN CHURCH/[2021] ░█░█░░█░█░█░/04. F A R B A S K E I N.mp3'
+D: 1.659: PlaylistMux.go_to: Told to go to '/mnt/windata/Users/gzfrog/Music/KEYGEN CHURCH/[2021] ░█░█░░█░█░█░/04. F A R B A S K E I N.mp3'
+D: 1.659: QueueModel.go_to: Told to go to None
+D: 1.659: PlaylistModel.go_to: Told to go to '/mnt/windata/Users/gzfrog/Music/KEYGEN CHURCH/[2021] ░█░█░░█░█░█░/04. F A R B A S K E I N.mp3'
+D: 1.659: GStreamerPlayer._end: End song
+D: 1.659: player.gstbe.player.__destroy_pipeline: Destroying Gstreamer pipeline
+D: 1.659: player.gstbe.player.__init_pipeline: User pipeline (from player.gst_pipeline): ''
+D: 1.686: player.gstbe.player.__destroy_pipeline: Destroying Gstreamer pipeline
+W: 1.686: GStreamerPlayer._error: No GStreamer audio sink found. Tried: pulsesink
+D: 1.715: session.xsmp.save_yourself: xsmp: save_yourself (<SaveType.LOCAL: 1>, False, <InteractStyle.NONE: 0>, False)
+D: 1.715: session.xsmp.save_complete: xsmp: save_complete
+D: 2.468: Query.__init__: Creating query ''
+D: 2.537: SongFileLibrary.rebuild('main'): Rebuilding, force is False
+D: 2.893: SongFileLibrary._load_item('main'): Loading '/mnt/windata/Users/gzfrog/Music/Slayer/[2001] God Hates Us All/01. Darkness of Christ.mp3'
+D: 2.900: SongFileLibrary._load_item('main'): Reloaded '/mnt/windata/Users/gzfrog/Music/Slayer/[2001] God Hates Us All/01. Darkness of Christ.mp3'.
+D: 2.900: SongFileLibrary._load_item('main'): Loading '/mnt/windata/Users/gzfrog/Music/Slayer/[2001] God Hates Us All/02. Disciple.mp3'
+D: 2.910: SongFileLibrary._load_item('main'): Reloaded '/mnt/windata/Users/gzfrog/Music/Slayer/[2001] God Hates Us All/02. Disciple.mp3'.
+D: 2.927: SongFileLibrary.rebuild('main'): Removing 0, changing 2).
+D: 2.928: library.libraries.__changed: Updating affected albums for 2 items
+D: 2.929: SongFileLibrary.scan('main'): Scanning /home/gzfrog/Music
+D: 3.976: util.cover.manager.run: Found local cover from EmbeddedCover: <tempfile._TemporaryFileWrapper object at 0x7ffb9c16a970>
+D: 3.976: ViewLyrics.plugin_on_song_started: Looking for lyrics for /mnt/windata/Users/gzfrog/Music/KEYGEN CHURCH/[2021] ░█░█░░█░█░█░/04. F A R B A S K E I N.mp3
+D: 3.982: WaveformSeekBar._create_waveform: Computing data for each 0.091 seconds
+E: 3.987: errorreport.main.errorhook: waveformseekbar.py:110:_create_waveform: gi.repository.GLib.GError: gst_parse_error: no element "level" (1)
