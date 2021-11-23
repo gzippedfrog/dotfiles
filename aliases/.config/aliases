@@ -1,29 +1,35 @@
 #!/bin/sh
 
-## general
+# general
 alias s="sudo"
 alias v=$EDITOR
 alias sv="sudo -e"
 alias stow="stow -t ~/ -v"
 alias la="ls -hla --color=auto --group-directories-first"
 alias lsblk="lsblk | grep -v '^loop'"
-alias gdc="git commit -m \"some changes\""
+alias gdc="git commit -m \"minor changes\""
 
-## pacman
+# pacman
 #alias p="sudo pacman"
 #alias upg="sudo pacman -Syu"
 #alias rmo="sudo pacman -Rs $(pacman -Qqtd)"
 
-## apt
+# apt
 #alias ap="sudo apt"
 #alias in="sudo apt install"
 #alias upg="sudo apt update && sudo apt upgrade"
 #alias rmo="sudo apt autoremove"
 
-# zypper
-alias zp="sudo zypper"
+# dnf
+alias dn="sudo dnf"
+alias dni="sudo dnf install"
+alias dnu="sudo dnf update"
+alias dnr="sudo dnf remove"
 
-## soystemd
+# zypper
+#alias zp="sudo zypper"
+
+# soystemd
 alias off="systemctl poweroff"
 alias reb="systemctl reboot"
 alias susp="systemctl suspend"
