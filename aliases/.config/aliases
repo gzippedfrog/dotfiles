@@ -25,6 +25,7 @@ alias dn="sudo dnf"
 alias dni="sudo dnf install"
 alias dnu="sudo dnf update"
 alias dnr="sudo dnf remove"
+alias dns="sudo dnf search"
 
 # zypper
 #alias zp="sudo zypper"
