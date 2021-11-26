@@ -10,22 +10,25 @@ alias lsblk="lsblk | grep -v '^loop'"
 alias gdc="git commit -m \"minor changes\""
 
 # pacman
-#alias p="sudo pacman"
-#alias upg="sudo pacman -Syu"
-#alias rmo="sudo pacman -Rs $(pacman -Qqtd)"
+#alias pm="sudo pacman"
+#alias pmi="sudo pacman -S"
+#alias pmu="sudo pacman -Syu"
+#alias pmr="sudo pacman -Rns"
+#alias pmro="sudo pacman -Rs $(pacman -Qqtd)"
 
 # apt
-#alias ap="sudo apt"
-#alias in="sudo apt install"
-#alias upg="sudo apt update && sudo apt upgrade"
-#alias rmo="sudo apt autoremove"
+#alias pm="sudo apt"
+#alias pmi="sudo apt install"
+#alias pmu="sudo apt update && sudo apt upgrade"
+#alias pmr="sudo apt autoremove"
+#alias pms="sudo apt search"
 
 # dnf
-alias dn="sudo dnf"
-alias dni="sudo dnf install"
-alias dnu="sudo dnf update"
-alias dnr="sudo dnf remove"
-alias dns="sudo dnf search"
+alias pm="sudo dnf"
+alias pmi="sudo dnf install"
+alias pmu="sudo dnf update"
+alias pmr="sudo dnf remove"
+alias pms="sudo dnf search"
 
 # zypper
 #alias zp="sudo zypper"
