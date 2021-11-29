@@ -17,18 +17,18 @@ alias gdc="git commit -m \"minor changes\""
 #alias pmro="sudo pacman -Rs $(pacman -Qqtd)"
 
 # apt
-#alias pm="sudo apt"
-#alias pmi="sudo apt install"
-#alias pmu="sudo apt update && sudo apt upgrade"
-#alias pmr="sudo apt autoremove"
-#alias pms="sudo apt search"
+alias pm="sudo apt"
+alias pmi="sudo apt install"
+alias pmu="sudo apt update && sudo apt upgrade"
+alias pmr="sudo apt remove"
+alias pms="sudo apt search"
 
 # dnf
-alias pm="sudo dnf"
-alias pmi="sudo dnf install"
-alias pmu="sudo dnf update"
-alias pmr="sudo dnf remove"
-alias pms="sudo dnf search"
+#alias pm="sudo dnf"
+#alias pmi="sudo dnf install"
+#alias pmu="sudo dnf update"
+#alias pmr="sudo dnf remove"
+#alias pms="sudo dnf search"
 
 # zypper
 #alias zp="sudo zypper"
