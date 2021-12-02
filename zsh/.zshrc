@@ -1,3 +1,6 @@
+# Install oh-my-zsh
+#sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -149,5 +152,5 @@ echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 # history search
-bindkey "K" history-beginning-search-backward
-bindkey "J" history-beginning-search-forward
+bindkey "^[k" history-beginning-search-backward
+bindkey "^[j" history-beginning-search-forward
