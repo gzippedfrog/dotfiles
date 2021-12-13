@@ -3,3 +3,5 @@
 	email = gzippedfrog@outlook.com
 [core]
 	excludesfile = ~/.config/git/gitignore
+[init]
+  defaultBranch = main
