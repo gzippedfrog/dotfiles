@@ -1,6 +1,10 @@
 # Install oh-my-zsh
 #sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
+# WSL
+/usr/bin/keychain --nogui ~/.ssh/id_ed25519
+source $HOME/.keychain/DESKTOP-4M1SA0K-sh
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
