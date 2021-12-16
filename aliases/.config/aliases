@@ -19,7 +19,7 @@ alias gdc="git commit -m \"minor changes\""
 # apt
 alias pm="sudo apt"
 alias pmi="sudo apt install"
-alias pmu="sudo apt update && sudo apt upgrade"
+alias pmu="sudo apt update && sudo apt upgrade; sudo snap refresh"
 alias pmr="sudo apt remove"
 alias pms="sudo apt search"
 
