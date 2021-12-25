@@ -1,4 +1,4 @@
-export ZSH="$HOME/.config/oh-my-zsh"
+export ZSH="$HOME/.config/zsh"
 
 # Install oh-my-zsh
 if [ ! -d $ZSH ] && [ -x "$(command -v git)" ]; then
@@ -11,6 +11,7 @@ export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+
 
 # Flatpaks
 export XDG_DATA_DIRS="$XDG_DATA_DIRS:\
@@ -120,15 +121,22 @@ fi
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
+
 [ -e ~/.local/bin ] && export PATH=$PATH:$(find ~/.local/bin -maxdepth 2 -type d | tr '\n' ':')
 [ -x "$(command -v nvim)" ] && export EDITOR="nvim" || export EDITOR="vim"
 [ -e ~/.config/aliases ] && source ~/.config/aliases
 
-# vi mode
+# Zsh history
+export ZSH_CACHE_DIR="$HOME/.cache/zsh"
+[ ! -e $ZSH_CACHE_DIR ] && mkdir -p $ZSH_CACHE_DIR
+export HISTFILE="$ZSH_CACHE_DIR/zsh_history"
+
+
+# Vi mode
 bindkey -v
 export KEYTIMEOUT=1
 
-# Use vim keys in tab complete menu:
+# use vim keys in tab complete menu:
 bindkey -M menuselect 'h' vi-backward-char
 bindkey -M menuselect 'k' vi-up-line-or-history
 bindkey -M menuselect 'l' vi-forward-char
@@ -148,9 +156,13 @@ zle-line-init() {
     echo -ne "\e[5 q"
 }
 zle -N zle-line-init
-echo -ne '\e[5 q' # Use beam shape cursor on startup.
-preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+echo -ne '\e[5 q' # use beam shape cursor on startup.
+preexec() { echo -ne '\e[5 q' ;} # use beam shape cursor for each new prompt.
 
-# history search
+# History search
 bindkey "^[k" history-beginning-search-backward
 bindkey "^[j" history-beginning-search-forward
+
+export ZDOTDIR=$ZSH
+
+compinit -d "$HOME/.cache/zsh/zcompdump-$ZSH_VERSION"
