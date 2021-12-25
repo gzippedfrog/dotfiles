@@ -1,9 +1,8 @@
-export OH_MY_ZSH_DIR="$HOME/.config/zsh/oh-my-zsh"
+export ZSH="$HOME/.config/oh-my-zsh"
 
 # Install oh-my-zsh
-if [ ! -d $OH_MY_ZSH_DIR ] && [ -x "$(command -v git)" ]; then
-	mkdir -p $OH_MY_ZSH_DIR;
-	git clone https://github.com/ohmyzsh/ohmyzsh.git $OH_MY_ZSH_DIR
+if [ ! -d $ZSH ] && [ -x "$(command -v git)" ]; then
+	git clone https://github.com/ohmyzsh/ohmyzsh.git $ZSH
 fi
 
 # Android
@@ -14,7 +13,10 @@ export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # Flatpaks
-export XDG_DATA_DIRS=$XDG_DATA_DIRS:/var/lib/flatpak/exports/share:~/.local/share/flatpak/exports/share
+export XDG_DATA_DIRS="$XDG_DATA_DIRS:\
+/var/lib/flatpak/exports/share:\
+~/.local/share/flatpak/exports/share:\
+"
 
 # WSL
 #/usr/bin/keychain --nogui ~/.ssh/id_ed25519
@@ -22,9 +24,6 @@ export XDG_DATA_DIRS=$XDG_DATA_DIRS:/var/lib/flatpak/exports/share:~/.local/shar
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-
-# Path to your oh-my-zsh installation.
-export ZSH=$OH_MY_ZSH_DIR
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
