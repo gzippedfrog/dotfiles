@@ -1,5 +1,10 @@
+export OH_MY_ZSH_DIR="$HOME/.config/zsh/oh-my-zsh"
+
 # Install oh-my-zsh
-#sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+if [ ! -d $OH_MY_ZSH_DIR ] && [ -x "$(command -v git)" ]; then
+	mkdir -p $OH_MY_ZSH_DIR;
+	git clone https://github.com/ohmyzsh/ohmyzsh.git $OH_MY_ZSH_DIR
+fi
 
 # Android
 export ANDROID_HOME=$HOME/Android/Sdk
@@ -19,7 +24,7 @@ export XDG_DATA_DIRS=$XDG_DATA_DIRS:/var/lib/flatpak/exports/share:~/.local/shar
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/dmitry/.oh-my-zsh"
+export ZSH=$OH_MY_ZSH_DIR
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -58,7 +63,7 @@ ZSH_THEME="robbyrussell"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # You can also set it to another string to have that shown instead of the default red dots.
@@ -115,7 +120,6 @@ fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
-
 
 [ -e ~/.local/bin ] && export PATH=$PATH:$(find ~/.local/bin -maxdepth 2 -type d | tr '\n' ':')
 [ -x "$(command -v nvim)" ] && export EDITOR="nvim" || export EDITOR="vim"
