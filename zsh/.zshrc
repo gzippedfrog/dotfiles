@@ -1,9 +1,8 @@
-export ZSH="$HOME/.config/zsh"
-
-# Install oh-my-zsh
-if [ ! -d $ZSH ] && [ -x "$(command -v git)" ]; then
-	git clone https://github.com/ohmyzsh/ohmyzsh.git $ZSH
-fi
+# zsh
+export ZDOTDIR=$HOME/.config/zsh
+export ZSH=$ZDOTDIR
+export ZSH_CACHE_DIR=$HOME/.cache/zsh
+export HISTFILE=$ZSH_CACHE_DIR/zsh_history
 
 # Android
 export ANDROID_HOME=$HOME/Android/Sdk
@@ -12,19 +11,20 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
-
 # Flatpaks
-export XDG_DATA_DIRS="$XDG_DATA_DIRS:\
-/var/lib/flatpak/exports/share:\
-~/.local/share/flatpak/exports/share:\
-"
+# export XDG_DATA_DIRS="$XDG_DATA_DIRS:\
+# /var/lib/flatpak/exports/share:\
+# ~/.local/share/flatpak/exports/share:\
+# "
+
+# Install oh-my-zsh
+if [ ! -d $ZSH ] && [ -x "$(command -v git)" ]; then
+	git clone https://github.com/ohmyzsh/ohmyzsh.git $ZSH
+fi
 
 # WSL
 #/usr/bin/keychain --nogui ~/.ssh/id_ed25519
 #source $HOME/.keychain/DESKTOP-4M1SA0K-sh
-
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -97,42 +97,21 @@ plugins=(git zsh-autosuggestions fast-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
-# Install plugins
+# install plugins
 if [ ! -d $ZSH_CUSTOM/plugins/zsh-autosuggestions ] && [ -x "$(command -v git)" ]; then
 	mkdir -p $ZSH_CUSTOM/plugins
 	git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
 	git clone https://github.com/zdharma-continuum/fast-syntax-highlighting $ZSH_CUSTOM/plugins/fast-syntax-highlighting
 fi
 
-# User configuration
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-
 [ -e ~/.local/bin ] && export PATH=$PATH:$(find ~/.local/bin -maxdepth 2 -type d | tr '\n' ':')
 [ -x "$(command -v nvim)" ] && export EDITOR="nvim" || export EDITOR="vim"
 [ -e ~/.config/aliases ] && source ~/.config/aliases
 
-# Zsh history
-export ZSH_CACHE_DIR="$HOME/.cache/zsh"
+# zsh history
 [ ! -e $ZSH_CACHE_DIR ] && mkdir -p $ZSH_CACHE_DIR
-export HISTFILE="$ZSH_CACHE_DIR/zsh_history"
 
-
-# Vi mode
+# vi mode
 bindkey -v
 export KEYTIMEOUT=1
 
@@ -143,7 +122,7 @@ bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^?' backward-delete-char
 
-# Change cursor shape for different vi modes.
+# change cursor shape for different vi modes.
 function zle-keymap-select () {
     case $KEYMAP in
         vicmd) echo -ne '\e[1 q';;      # block
@@ -159,10 +138,6 @@ zle -N zle-line-init
 echo -ne '\e[5 q' # use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # use beam shape cursor for each new prompt.
 
-# History search
+# history search
 bindkey "^[k" history-beginning-search-backward
 bindkey "^[j" history-beginning-search-forward
-
-export ZDOTDIR=$ZSH
-
-compinit -d "$HOME/.cache/zsh/zcompdump-$ZSH_VERSION"
