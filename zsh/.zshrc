@@ -1,30 +1,13 @@
-# zsh
-export ZDOTDIR=$HOME/.config/zsh
-export ZSH=$ZDOTDIR
-export ZSH_CACHE_DIR=$HOME/.cache/zsh
-export HISTFILE=$ZSH_CACHE_DIR/zsh_history
+# If you come from bash you might have to change your $PATH.
+# export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-# Android
-export ANDROID_HOME=$HOME/Android/Sdk
-export PATH=$PATH:$ANDROID_HOME/emulator
-export PATH=$PATH:$ANDROID_HOME/tools
-export PATH=$PATH:$ANDROID_HOME/tools/bin
-export PATH=$PATH:$ANDROID_HOME/platform-tools
+# Path to your oh-my-zsh installation.
+export ZSH="$HOME/.oh-my-zsh"
 
-# Flatpaks
-# export XDG_DATA_DIRS="$XDG_DATA_DIRS:\
-# /var/lib/flatpak/exports/share:\
-# ~/.local/share/flatpak/exports/share:\
-# "
-
-# Install oh-my-zsh
+# Install Oh My Zsh
 if [ ! -d $ZSH ] && [ -x "$(command -v git)" ]; then
 	git clone https://github.com/ohmyzsh/ohmyzsh.git $ZSH
 fi
-
-# WSL
-#/usr/bin/keychain --nogui ~/.ssh/id_ed25519
-#source $HOME/.keychain/DESKTOP-4M1SA0K-sh
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -63,7 +46,7 @@ ZSH_THEME="robbyrussell"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+# ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # You can also set it to another string to have that shown instead of the default red dots.
@@ -92,52 +75,59 @@ ENABLE_CORRECTION="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-
 plugins=(git zsh-autosuggestions fast-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
-# install plugins
+# Install plugins
 if [ ! -d $ZSH_CUSTOM/plugins/zsh-autosuggestions ] && [ -x "$(command -v git)" ]; then
-	mkdir -p $ZSH_CUSTOM/plugins
-	git clone https://github.com/zsh-users/zsh-autosuggestions $ZSH_CUSTOM/plugins/zsh-autosuggestions
-	git clone https://github.com/zdharma-continuum/fast-syntax-highlighting $ZSH_CUSTOM/plugins/fast-syntax-highlighting
+  cd $ZSH_CUSTOM/plugins
+	git clone https://github.com/zsh-users/zsh-autosuggestions
+	git clone https://github.com/zdharma-continuum/fast-syntax-highlighting
+  cd ~
 fi
 
-[ -e ~/.local/bin ] && export PATH=$PATH:$(find ~/.local/bin -maxdepth 2 -type d | tr '\n' ':')
-[ -x "$(command -v nvim)" ] && export EDITOR="nvim" || export EDITOR="vim"
-[ -e ~/.config/aliases ] && source ~/.config/aliases
+# User configuration
 
-# zsh history
-[ ! -e $ZSH_CACHE_DIR ] && mkdir -p $ZSH_CACHE_DIR
+# export MANPATH="/usr/local/man:$MANPATH"
 
-# vi mode
-bindkey -v
-export KEYTIMEOUT=1
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
 
-# use vim keys in tab complete menu:
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
-bindkey -v '^?' backward-delete-char
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='mvim'
+# fi
 
-# change cursor shape for different vi modes.
-function zle-keymap-select () {
-    case $KEYMAP in
-        vicmd) echo -ne '\e[1 q';;      # block
-        viins|main) echo -ne '\e[5 q';; # beam
-    esac
-}
-zle -N zle-keymap-select
-zle-line-init() {
-    zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
-    echo -ne "\e[5 q"
-}
-zle -N zle-line-init
-echo -ne '\e[5 q' # use beam shape cursor on startup.
-preexec() { echo -ne '\e[5 q' ;} # use beam shape cursor for each new prompt.
+# Compilation flags
+# export ARCHFLAGS="-arch x86_64"
 
-# history search
-bindkey "^[k" history-beginning-search-backward
-bindkey "^[j" history-beginning-search-forward
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Android
+# export ANDROID_HOME=$HOME/Android/Sdk
+# export PATH=$PATH:$ANDROID_HOME/emulator
+# export PATH=$PATH:$ANDROID_HOME/tools
+# export PATH=$PATH:$ANDROID_HOME/tools/bin
+# export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+# [ -e ~/.local/bin ] && export PATH=$PATH:$(find ~/.local/bin -maxdepth 2 -type d | tr '\n' ':')
+
+# if [ -x "$(command -v nvim)" ]; then
+#   export EDITOR="nvim"
+# elif [ -x "$(command -v vim)" ]; then
+#   export EDITOR="vim"
+# else
+#   export EDITOR="vi"
+# fi
+
+# [ -e ~/.config/aliases ] && source ~/.config/aliases
