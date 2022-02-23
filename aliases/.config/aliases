@@ -8,6 +8,7 @@ alias stow="stow -t ~/ -v"
 alias la="ls -hla --color=auto --group-directories-first"
 alias lsblk="lsblk | grep -v '^loop'"
 alias gdc="git commit -m \"minor changes\""
+alias proj="cd ~/Projects"
 
 # pacman
 #alias pm="sudo pacman"
