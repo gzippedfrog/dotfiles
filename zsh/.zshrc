@@ -10,14 +10,11 @@ zstyle ':z4h:' auto-update      'no'
 # Ask whether to auto-update this often; has no effect if auto-update is 'no'.
 zstyle ':z4h:' auto-update-days '28'
 
-# Don't start tmux.
-zstyle ':z4h:' start-tmux       no
-
-# Move prompt to the bottom when zsh starts and on Ctrl+L.
-zstyle ':z4h:' prompt-at-bottom 'yes'
-
 # Keyboard type: 'mac' or 'pc'.
 zstyle ':z4h:bindkey' keyboard  'pc'
+
+# Don't start tmux.
+zstyle ':z4h:' start-tmux       no
 
 # Mark up shell's output with semantic information.
 zstyle ':z4h:' term-shell-integration 'yes'
@@ -58,27 +55,40 @@ zstyle ':z4h:ssh:*' send-extra-files '~/.nanorc' '~/.env.zsh'
 # perform network I/O must be done above. Everything else is best done below.
 z4h init || return
 
-# Extend PATH.
-path=(~/bin $path)
-
 # Export environment variables.
 export GPG_TTY=$TTY
+export ANDROID_HOME=$HOME/Android/Sdk
+export EDITOR="nvim"
+
+# Extend PATH.
+path=(
+	~/bin
+	# Flatpak
+	/var/lib/flatpak/exports/share
+	/home/dmitry/.local/share/flatpak/exports/share
+	# Android
+	$ANDROID_HOME/emulator
+	$ANDROID_HOME/tools
+	$ANDROID_HOME/tools/bin
+	$ANDROID_HOME/platform-tools
+	$path
+)
 
 # Source additional local files if they exist.
-# z4h source ~/.env.zsh
+z4h source ~/.env.zsh
 
 # Use additional Git repositories pulled in with `z4h install`.
-#
+
 # This is just an example that you should delete. It does nothing useful.
-# z4h source ohmyzsh/ohmyzsh/lib/diagnostics.zsh  # source an individual file
-# z4h load   ohmyzsh/ohmyzsh/plugins/emoji-clock  # load a plugin
+#z4h source ohmyzsh/ohmyzsh/lib/diagnostics.zsh  # source an individual file
+#z4h load   ohmyzsh/ohmyzsh/plugins/emoji-clock  # load a plugin
 
 # Define key bindings.
 z4h bindkey z4h-backward-kill-word  Ctrl+Backspace     Ctrl+H
 z4h bindkey z4h-backward-kill-zword Ctrl+Alt+Backspace
 
-z4h bindkey undo Ctrl+/ Shift+Tab # undo the last command line change
-z4h bindkey redo Alt+/            # redo the last undone command line change
+z4h bindkey undo Ctrl+/ Shift+Tab  # undo the last command line change
+z4h bindkey redo Alt+/             # redo the last undone command line change
 
 z4h bindkey z4h-cd-back    Alt+Left   # cd into the previous directory
 z4h bindkey z4h-cd-forward Alt+Right  # cd into the next directory
@@ -93,10 +103,34 @@ function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
 compdef _directories md
 
 # Define named directories: ~w <=> Windows home directory on WSL.
-[[ -z $z4h_win_home ]] || hash -d w=$z4h_win_home
+[[ -z $z4h_win_home ]] || hash -d wsl=$z4h_win_home
+win=/mnt/windata/Users/dmitry
+[[ -z $win ]] || hash -d win=$win
 
 # Define aliases.
 alias tree='tree -a -I .git'
+alias s="sudo"
+alias v=$EDITOR
+alias sv="sudo -e"
+alias stow="stow -t ~/ -v"
+alias la="ls -hla --color=auto --group-directories-first"
+alias lsblk="lsblk | grep -v '^loop'"
+alias gdc="git commit -m \"minor changes\""
+# dirs
+alias proj="cd ~/Projects"
+alias dots="cd ~/.config/dotfiles"
+alias win="cd $win"
+# apt
+alias pm="sudo apt"
+alias pmi="sudo apt install"
+alias pmu="sudo apt update && sudo apt upgrade; sudo snap refresh"
+alias pmr="sudo apt remove"
+alias pms="sudo apt search"
+# soystemd
+alias off="systemctl poweroff"
+alias reb="systemctl reboot"
+alias susp="systemctl suspend"
+alias uefi="systemctl reboot --firmware-setup"
 
 # Add flags to existing aliases.
 alias ls="${aliases[ls]:-ls} -A"
@@ -104,22 +138,3 @@ alias ls="${aliases[ls]:-ls} -A"
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
 setopt glob_dots     # no special treatment for file names with a leading dot
 setopt no_auto_menu  # require an extra TAB press to open the completion menu
-
-# Android
-export ANDROID_HOME=$HOME/Android/Sdk
-export PATH=$PATH:$ANDROID_HOME/emulator
-export PATH=$PATH:$ANDROID_HOME/tools
-export PATH=$PATH:$ANDROID_HOME/tools/bin
-export PATH=$PATH:$ANDROID_HOME/platform-tools
-
-[ -e ~/.local/bin ] && export PATH=$PATH:$(find ~/.local/bin -maxdepth 2 -type d | tr '\n' ':')
-
-if [ -x "$(command -v nvim)" ]; then
-  export EDITOR="nvim"
-elif [ -x "$(command -v vim)" ]; then
-  export EDITOR="vim"
-else
-  export EDITOR="vi"
-fi
-
-[ -e ~/.config/aliases ] && source ~/.config/aliases
