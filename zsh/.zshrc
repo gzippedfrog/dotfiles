@@ -118,23 +118,25 @@ alias \
 	la="ls -hla --color=auto --group-directories-first" \
 	lsblk="lsblk | grep -v '^loop'" \
 	g="git" \
-	gdc="git commit -m 'minor changes'"
+	gdc="git commit -m 'minor changes'" \
+	ka="killall" \
+	ska="sudo killall"
 # dirs
 alias \
 	proj="cd ~/Projects" \
 	dots="cd ~/.config/dotfiles" \
 	win="cd $win"
 # apt
-alias \
-	pm="sudo apt" \
-	pmi="sudo apt install" \
-	pmu="sudo apt update && sudo apt upgrade; sudo snap refresh; flatpak update" \
-	pmr="sudo apt remove" \
-	pma="sudo apt autoremove" \
-	pms="sudo apt search"
+#alias \
+#	pm="sudo apt" \
+#	pmi="sudo apt install" \
+#	pmu="sudo apt update && sudo apt upgrade; sudo snap refresh; flatpak update" \
+#	pmr="sudo apt remove" \
+#	pma="sudo apt autoremove" \
+#	pms="sudo apt search"
 # nala (apt)
 alias \
-	pm="sudo nala"
+	pm="sudo nala" \
 	pmi="sudo nala install" \
 	pmu="sudo nala update && sudo nala upgrade; sudo snap refresh; flatpak update" \
 	pmr="sudo nala remove" \
