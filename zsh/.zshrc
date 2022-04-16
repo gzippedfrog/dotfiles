@@ -127,21 +127,21 @@ alias \
 	dots="cd ~/.config/dotfiles" \
 	win="cd $win"
 # apt
-#alias \
-#	pm="sudo apt" \
-#	pmi="sudo apt install" \
-#	pmu="sudo apt update && sudo apt upgrade; sudo snap refresh; flatpak update" \
-#	pmr="sudo apt remove" \
-#	pma="sudo apt autoremove" \
-#	pms="sudo apt search"
-# nala (apt)
 alias \
-	pm="sudo nala" \
-	pmi="sudo nala install" \
-	pmu="sudo nala update && sudo nala upgrade; sudo snap refresh; flatpak update" \
-	pmr="sudo nala remove" \
-	pma="sudo nala autoremove" \
-	pms="sudo nala search"
+	pm="sudo apt" \
+	pmi="sudo apt install" \
+	pmu="sudo apt update && sudo apt upgrade; sudo snap refresh; flatpak update" \
+	pmr="sudo apt remove" \
+	pma="sudo apt autoremove" \
+	pms="sudo apt search"
+# nala (apt)
+#alias \
+#	pm="sudo nala" \
+#	pmi="sudo nala install" \
+#	pmu="sudo nala update && sudo nala upgrade; sudo snap refresh; flatpak update" \
+#	pmr="sudo nala remove" \
+#	pma="sudo nala autoremove" \
+#	pms="sudo nala search"
 # soystemd
 alias \
 	off="systemctl poweroff"
