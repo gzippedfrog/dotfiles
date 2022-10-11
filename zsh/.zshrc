@@ -42,12 +42,15 @@ zstyle ':z4h:ssh:*'                   enable 'no'
 # enabled hosts.
 zstyle ':z4h:ssh:*' send-extra-files '~/.nanorc' '~/.env.zsh'
 
+# Start ssh-agent if it's not running yet.
+zstyle ':z4h:ssh-agent:' start yes
+
 # Clone additional Git repositories from GitHub.
 #
 # This doesn't do anything apart from cloning the repository and keeping it
 # up-to-date. Cloned files can be used after `z4h init`. This is just an
 # example. If you don't plan to use Oh My Zsh, delete this line.
-# z4h install ohmyzsh/ohmyzsh || return
+z4h install ohmyzsh/ohmyzsh || return
 
 # Install or update core components (fzf, zsh-autosuggestions, etc.) and
 # initialize Zsh. After this point console I/O is unavailable until Zsh
@@ -55,26 +58,14 @@ zstyle ':z4h:ssh:*' send-extra-files '~/.nanorc' '~/.env.zsh'
 # perform network I/O must be done above. Everything else is best done below.
 z4h init || return
 
+# Extend PATH.
+path=(~/bin $path)
+
 # Export environment variables.
 export GPG_TTY=$TTY
-export ANDROID_HOME=$HOME/Android/Sdk
+export PROJ_DIR=$HOME/Projects
+export DOTS_DIR=$HOME/.config/dotfiles
 export EDITOR=nvim
-export WINDIR=/mnt/windata/Users/dmitry
-export GODEBUG=madvdontneed=1
-
-# Extend PATH.
-path=(
-	~/bin
-	# Flatpak
-	/var/lib/flatpak/exports/share
-	/home/dmitry/.local/share/flatpak/exports/share
-	# Android
-	$ANDROID_HOME/emulator
-	$ANDROID_HOME/tools
-	$ANDROID_HOME/tools/bin
-	$ANDROID_HOME/platform-tools
-	$path
-)
 
 # Source additional local files if they exist.
 z4h source ~/.env.zsh
@@ -82,9 +73,8 @@ z4h source ~/.env.zsh
 # Use additional Git repositories pulled in with `z4h install`.
 
 # This is just an example that you should delete. It does nothing useful.
-#z4h source ohmyzsh/ohmyzsh/lib/diagnostics.zsh  # source an individual file
-#z4h load   ohmyzsh/ohmyzsh/plugins/emoji-clock  # load a plugin
-z4h source /usr/share/bash-completion/completions/nala
+# z4h source ohmyzsh/ohmyzsh/lib/diagnostics.zsh  # source an individual file
+# z4h load   ohmyzsh/ohmyzsh/plugins/emoji-clock  # load a plugin
 
 # Define key bindings.
 z4h bindkey z4h-backward-kill-word  Ctrl+Backspace     Ctrl+H
@@ -106,8 +96,9 @@ function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
 compdef _directories md
 
 # Define named directories: ~w <=> Windows home directory on WSL.
-[[ -z $z4h_win_home ]] || hash -d wsl=$z4h_win_home
-[[ -z $WINDIR ]] || hash -d win=$WINDIR
+[[ -z $z4h_win_home ]] || hash -d w=$z4h_win_home
+[[ -z $PROJ_DIR ]] || hash -d proj=$PROJ_DIR
+[[ -z $DOTS_DIR ]] || hash -d dots=$DOTS_DIR
 
 # Define aliases.
 alias \
@@ -122,36 +113,17 @@ alias \
 	gdc="git commit -m 'minor changes'" \
 	ka="killall" \
 	ska="sudo killall"
-# dirs
-alias \
-	proj="cd ~/Projects" \
-	dots="cd ~/.config/dotfiles" \
-	win="cd $win"
 # apt
 alias \
 	pm="sudo apt" \
 	pmi="sudo apt install" \
-	pmu="sudo apt update && sudo apt upgrade; sudo snap refresh; flatpak update" \
+	pmu="sudo apt update && sudo apt upgrade" \
 	pmr="sudo apt remove" \
 	pma="sudo apt autoremove" \
 	pms="sudo apt search"
-# nala (apt)
-#alias \
-#	pm="sudo nala" \
-#	pmi="sudo nala install" \
-#	pmu="sudo nala update && sudo nala upgrade; sudo snap refresh; flatpak update" \
-#	pmr="sudo nala remove" \
-#	pma="sudo nala autoremove" \
-#	pms="sudo nala search"
-# soystemd
-alias \
-	off="systemctl poweroff"
-	reb="systemctl reboot" \
-	susp="systemctl suspend" \
-	uefi="systemctl reboot --firmware-setup"
 
 # Add flags to existing aliases.
-alias ls="${aliases[ls]:-ls} -A"
+#alias ls="${aliases[ls]:-ls} -A"
 
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
 setopt glob_dots     # no special treatment for file names with a leading dot
@@ -160,3 +132,13 @@ setopt no_auto_menu  # require an extra TAB press to open the completion menu
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Install vim-plug
+VIM_PLUG_DIR=${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload
+
+if [ ! -e $VIM_PLUG_DIR/plug.vim ]; then 
+	echo "Installing vim-plug..."
+	curl -fLo $VIM_PLUG_DIR/plug.vim --create-dirs \
+		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	echo "Done"
+fi
