@@ -59,7 +59,11 @@ z4h install ohmyzsh/ohmyzsh || return
 z4h init || return
 
 # Extend PATH.
-path=(~/bin $path)
+path=(
+	~/bin \
+	~/.config/composer/vendor/bin \
+	$path
+)
 
 # Export environment variables.
 export GPG_TTY=$TTY
@@ -114,13 +118,25 @@ alias \
 	ka="killall" \
 	ska="sudo killall"
 # apt
+#alias \
+	#pm="sudo apt" \
+	#pmi="sudo apt install" \
+	#pmu="sudo apt update && sudo apt upgrade" \
+	#pmr="sudo apt remove" \
+	#pma="sudo apt autoremove" \
+	#pms="sudo apt search" \
+# nala (apt)
 alias \
-	pm="sudo apt" \
-	pmi="sudo apt install" \
-	pmu="sudo apt update && sudo apt upgrade" \
-	pmr="sudo apt remove" \
-	pma="sudo apt autoremove" \
-	pms="sudo apt search"
+	pm="sudo nala" \
+	pmi="sudo nala install" \
+	pmu="sudo nala update && sudo nala upgrade" \
+	pmr="sudo nala remove" \
+	pmp="sudo nala purge" \
+	pma="sudo nala autoremove" \
+	pms="sudo nala search"
+# php
+alias \
+	sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 
 # Add flags to existing aliases.
 #alias ls="${aliases[ls]:-ls} -A"
