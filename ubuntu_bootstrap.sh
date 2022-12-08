@@ -18,7 +18,7 @@ neofetch
 
 [ -x "$(command -v apt)" ] \
 	&& sudo apt update \
-	&& sudo apt upgrade \
+    && sudo apt upgrade \
     && sudo apt install $PACKAGES
 
 stow -t $HOME git gnome-ubu mpv neovim picard zsh
