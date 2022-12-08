@@ -111,11 +111,15 @@ alias \
 	v=$EDITOR \
 	sv="sudo -e" \
 	la="ls -hla --color=auto --group-directories-first" \
-	lsblk="lsblk | grep -v '^loop'" \
-	g="git" \
-	gc="git commit -m" \
+	lsblk="lsblk | grep -v '^loop'"
 	ka="killall" \
 	ska="sudo killall"
+# git
+alias \
+	g="git" \
+	ga="git add ." \
+	gc="git commit -m" \
+	gp="git push"
 # apt
 #alias \
 	#pm="sudo apt" \
