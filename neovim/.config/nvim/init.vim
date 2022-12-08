@@ -26,8 +26,8 @@ set number
 " Don't display current mode
 set noshowmode
 
-" Toggle text highlight
-noremap <leader>s :set hlsearch! hlsearch?<CR>
+" Toggle search highlight
+noremap <leader>h :set hlsearch! hlsearch?<CR>
 
 " Replace all is aliased to S
 nnoremap S :%s//g<Left><Left>

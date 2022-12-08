@@ -134,7 +134,7 @@ alias \
 	pmu="sudo $PKG_MANAGER update && \
 		 sudo $PKG_MANAGER upgrade; \
  		 [ "$(command -v flatpak)" ] && flatpak update; \
- 		 [ "$(command -v snap)" ] && sudo snap refresh;"
+ 		 [ "$(command -v snap)" ] && sudo snap refresh;" \
 	pmr="sudo $PKG_MANAGER remove" \
 	pmp="sudo $PKG_MANAGER purge" \
 	pma="sudo $PKG_MANAGER autoremove" \
