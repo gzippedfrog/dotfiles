@@ -50,7 +50,7 @@ zstyle ':z4h:ssh-agent:' start yes
 # This doesn't do anything apart from cloning the repository and keeping it
 # up-to-date. Cloned files can be used after `z4h init`. This is just an
 # example. If you don't plan to use Oh My Zsh, delete this line.
-z4h install ohmyzsh/ohmyzsh || return
+# z4h install ohmyzsh/ohmyzsh || return
 
 # Install or update core components (fzf, zsh-autosuggestions, etc.) and
 # initialize Zsh. After this point console I/O is unavailable until Zsh
@@ -60,17 +60,17 @@ z4h init || return
 
 # Extend PATH.
 path=(
+	$path \
 	~/bin \
-	~/.config/composer/vendor/bin \
-	$path
+	~/.config/composer/vendor/bin
 )
 
 # Export environment variables.
+export XDG_CONFIG_HOME=$HOME/.config
 export GPG_TTY=$TTY
 export PROJ_DIR=$HOME/Projects
-export DOTS_DIR=$HOME/.config/dotfiles
+export DOTS_DIR=$XDG_CONFIG_HOME/dotfiles
 export EDITOR=nvim
-export XDG_CONFIG_HOME="$HOME/.config"
 
 # Source additional local files if they exist.
 z4h source ~/.env.zsh

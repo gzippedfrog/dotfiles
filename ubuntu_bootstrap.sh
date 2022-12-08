@@ -22,6 +22,8 @@ if [ -x "$(command -v apt)" ]; then
 	sudo apt install $PACKAGES
 fi
 
+stow -t $HOME git gnome-ubu mpv neovim picard zsh
+
 # add flathub repo
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
