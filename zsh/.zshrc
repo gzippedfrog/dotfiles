@@ -70,6 +70,7 @@ export GPG_TTY=$TTY
 export PROJ_DIR=$HOME/Projects
 export DOTS_DIR=$HOME/.config/dotfiles
 export EDITOR=nvim
+export XDG_CONFIG_HOME="$HOME/.config"
 
 # Source additional local files if they exist.
 z4h source ~/.env.zsh
