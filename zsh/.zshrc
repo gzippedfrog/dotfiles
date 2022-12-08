@@ -110,11 +110,10 @@ alias \
 	s="sudo" \
 	v=$EDITOR \
 	sv="sudo -e" \
-	stow="stow -t ~/ -v" \
 	la="ls -hla --color=auto --group-directories-first" \
 	lsblk="lsblk | grep -v '^loop'" \
 	g="git" \
-	gdc="git commit -m 'minor changes'" \
+	gc="git commit -m" \
 	ka="killall" \
 	ska="sudo killall"
 # apt
@@ -125,7 +124,7 @@ alias \
 	#pmr="sudo apt remove" \
 	#pma="sudo apt autoremove" \
 	#pms="sudo apt search" \
-# nala (apt)
+# nala
 alias \
 	pm="sudo nala" \
 	pmi="sudo nala install" \
@@ -136,7 +135,9 @@ alias \
 	pms="sudo nala search"
 # php
 alias \
-	sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
+	sail='[ -f sail ] && sh sail || sh vendor/bin/sail' \
+	pa='php artisan'
+
 
 # Add flags to existing aliases.
 #alias ls="${aliases[ls]:-ls} -A"
@@ -158,3 +159,8 @@ if [ ! -e $VIM_PLUG_DIR/plug.vim ]; then
 		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 	echo "Done"
 fi
+
+keep_current_path() {
+  printf "\e]9;9;%s\e\\" "$(wslpath -w "$PWD")"
+}
+precmd_functions+=(keep_current_path)
