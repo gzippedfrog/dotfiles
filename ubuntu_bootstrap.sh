@@ -3,7 +3,8 @@
 # install essential packages
 PACKAGES='
 zsh
-neovim 
+neovim
+nala
 git 
 gnome-software
 gnome-sushi
@@ -17,7 +18,7 @@ neofetch
 '
 
 [ -x "$(command -v apt)" ] \
-	&& sudo apt update \
+    && sudo apt update \
     && sudo apt upgrade \
     && sudo apt install $PACKAGES
 
@@ -96,9 +97,9 @@ gsettings set org.gnome.shell.extensions.dash-to-dock show-mounts false
 gsettings set org.gnome.shell.extensions.dash-to-dock show-trash false
 
 # generate ssh key (github)
-ssh-keygen -t ed25519 \
-eval "$(ssh-agent -s)"; \
-ssh-add $HOME/.ssh/id_ed25519; \
+ssh-keygen -t ed25519
+eval "$(ssh-agent -s)"
+ssh-add $HOME/.ssh/id_ed25519
 cat $HOME/.ssh/id_ed25519.pub
 
 # install zsh4humans
