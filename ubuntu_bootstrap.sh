@@ -3,7 +3,7 @@
 # install essential packages
 PACKAGES='
 zsh
-vim 
+neovim 
 git 
 gnome-software
 gnome-sushi
@@ -16,11 +16,10 @@ tldr
 neofetch
 '
 
-if [ -x "$(command -v apt)" ]; then
-	sudo apt update  && \
-	sudo apt upgrade && \
-	sudo apt install $PACKAGES
-fi
+[ -x "$(command -v apt)" ] \
+	&& sudo apt update \
+	&& sudo apt upgrade \
+    && sudo apt install $PACKAGES
 
 stow -t $HOME git gnome-ubu mpv neovim picard zsh
 
@@ -29,13 +28,6 @@ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flat
 
 # enable X11 backend and hardware acceleration for mpv 
 sudo sed -i 's/\(^Exec=.*\) \(-- .*$\)/\1 --gpu-context=x11egl --hwdec=vaapi-copy \2/' /usr/share/applications/mpv.desktop
-
-# install zsh4humans
-if command -v curl >/dev/null 2>&1; then
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/romkatv/zsh4humans/v5/install)"
-else
-  sh -c "$(wget -O- https://raw.githubusercontent.com/romkatv/zsh4humans/v5/install)"
-fi
 
 # improve font rendering
 # in flatseal add xdg-config/fontconfig:ro 
@@ -108,3 +100,10 @@ ssh-keygen -t ed25519 \
 eval "$(ssh-agent -s)"; \
 ssh-add $HOME/.ssh/id_ed25519; \
 cat $HOME/.ssh/id_ed25519.pub
+
+# install zsh4humans
+if command -v curl >/dev/null 2>&1; then
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/romkatv/zsh4humans/v5/install)"
+else
+  sh -c "$(wget -O- https://raw.githubusercontent.com/romkatv/zsh4humans/v5/install)"
+fi
