@@ -104,7 +104,11 @@ compdef _directories md
 [[ -z $PROJ_DIR ]] || hash -d proj=$PROJ_DIR
 [[ -z $DOTS_DIR ]] || hash -d dots=$DOTS_DIR
 
-# Define aliases.
+[ "$(command -v nala)" ] && 
+	PKG_MANAGER=nala || 
+	PKG_MANAGER=apt
+
+# Define aliases
 alias \
 	tree='tree -a -I .git' \
 	s="sudo" \
@@ -114,29 +118,28 @@ alias \
 	lsblk="lsblk | grep -v '^loop'"
 	ka="killall" \
 	ska="sudo killall"
+
 # git
 alias \
-	g="git" \
-	ga="git add ." \
-	gc="git commit -m" \
-	gp="git push"
-# apt
-#alias \
-	#pm="sudo apt" \
-	#pmi="sudo apt install" \
-	#pmu="sudo apt update && sudo apt upgrade" \
-	#pmr="sudo apt remove" \
-	#pma="sudo apt autoremove" \
-	#pms="sudo apt search" \
-# nala
+	gt=" git" \
+	gts="git status" \
+	gta="git add ." \
+	gtc="git commit -m" \
+	gtp="git push"
+
+# apt/nala
 alias \
-	pm="sudo nala" \
-	pmi="sudo nala install" \
-	pmu="sudo nala update && sudo nala upgrade" \
-	pmr="sudo nala remove" \
-	pmp="sudo nala purge" \
-	pma="sudo nala autoremove" \
-	pms="sudo nala search"
+	pm=" sudo $PKG_MANAGER" \
+	pmi="sudo $PKG_MANAGER install" \
+	pmu="sudo $PKG_MANAGER update && \
+		 sudo $PKG_MANAGER upgrade; \
+ 		 [ "$(command -v flatpak)" ] && flatpak update; \
+ 		 [ "$(command -v snap)" ] && sudo snap refresh;"
+	pmr="sudo $PKG_MANAGER remove" \
+	pmp="sudo $PKG_MANAGER purge" \
+	pma="sudo $PKG_MANAGER autoremove" \
+	pms="sudo $PKG_MANAGER search"
+
 # php
 alias \
 	sail='[ -f sail ] && sh sail || sh vendor/bin/sail' \
@@ -149,22 +152,3 @@ alias \
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
 setopt glob_dots     # no special treatment for file names with a leading dot
 setopt no_auto_menu  # require an extra TAB press to open the completion menu
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Install vim-plug
-VIM_PLUG_DIR=${XDG_DATA_HOME:-$HOME/.local/share}/nvim/site/autoload
-
-if [ ! -e $VIM_PLUG_DIR/plug.vim ]; then 
-	echo "Installing vim-plug..."
-	curl -fLo $VIM_PLUG_DIR/plug.vim --create-dirs \
-		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	echo "Done"
-fi
-
-keep_current_path() {
-  printf "\e]9;9;%s\e\\" "$(wslpath -w "$PWD")"
-}
-precmd_functions+=(keep_current_path)
