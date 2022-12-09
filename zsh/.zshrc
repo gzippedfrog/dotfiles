@@ -118,15 +118,8 @@ alias \
 	la="ls -hla --color=auto --group-directories-first" \
 	lsblk="lsblk | grep -v '^loop'"
 	ka="killall" \
-	ska="sudo killall"
-
-# git
-alias \
-	gt=" git" \
-	gts="git status" \
-	gta="git add ." \
-	gtc="git commit -m" \
-	gtp="git push"
+	ska="sudo killall" \
+	g=" git"
 
 # apt/nala
 alias \
@@ -153,3 +146,9 @@ alias \
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
 setopt glob_dots     # no special treatment for file names with a leading dot
 setopt no_auto_menu  # require an extra TAB press to open the completion menu
+
+# open a tab or pane in the same directory (wsl)
+keep_current_path() {
+  printf "\e]9;9;%s\e\\" "$(wslpath -w "$PWD")"
+}
+precmd_functions+=(keep_current_path)
