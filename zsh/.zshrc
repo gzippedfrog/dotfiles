@@ -105,9 +105,13 @@ compdef _directories md
 [[ -z $PROJ_DIR ]] || hash -d proj=$PROJ_DIR
 [[ -z $DOTS_DIR ]] || hash -d dots=$DOTS_DIR
 
-[ "$(command -v nala)" ] && 
-	PKG_MANAGER=nala || 
+if [ "$(command -v nala)" ]; then
+	PKG_MANAGER=nala
+elif [ "$(command -v apt)" ]; then
 	PKG_MANAGER=apt
+elif [ "$(command -v dnf)" ]; then
+	PKG_MANAGER=apt
+fi
 
 # Define aliases
 alias \
@@ -116,18 +120,30 @@ alias \
 	v=$EDITOR \
 	sv="sudo -e" \
 	la="ls -hla --color=auto --group-directories-first" \
-	lsblk="lsblk | grep -v '^loop'"
+	lsblk="lsblk | grep -v '^loop'" \
 	ka="killall" \
 	ska="sudo killall" \
-	g=" git"
+	g="git"
 
 # apt/nala
+#alias \
+#	pm=" sudo $PKG_MANAGER" \
+#	pmi="sudo $PKG_MANAGER install" \
+#	pmu="sudo $PKG_MANAGER update && \
+#		 sudo $PKG_MANAGER upgrade; \
+# 		 [ "$(command -v flatpak)" ] && flatpak update; \
+# 		 [ "$(command -v snap)" ] && sudo snap refresh;" \
+#	pmr="sudo $PKG_MANAGER remove" \
+#	pmp="sudo $PKG_MANAGER purge" \
+#	pma="sudo $PKG_MANAGER autoremove" \
+#	pms="sudo $PKG_MANAGER search"
+
+# dnf
 alias \
 	pm=" sudo $PKG_MANAGER" \
 	pmi="sudo $PKG_MANAGER install" \
-	pmu="sudo $PKG_MANAGER update && \
-		 sudo $PKG_MANAGER upgrade; \
- 		 [ "$(command -v flatpak)" ] && flatpak update; \
+	pmu="sudo $PKG_MANAGER upgrade;
+ 		 [ "$(command -v flatpak)" ] && flatpak update;
  		 [ "$(command -v snap)" ] && sudo snap refresh;" \
 	pmr="sudo $PKG_MANAGER remove" \
 	pmp="sudo $PKG_MANAGER purge" \
@@ -147,10 +163,11 @@ alias \
 setopt glob_dots     # no special treatment for file names with a leading dot
 setopt no_auto_menu  # require an extra TAB press to open the completion menu
 
-# open a tab or pane in the same directory (wsl)
-keep_current_path() {
-  printf "\e]9;9;%s\e\\" "$(wslpath -w "$PWD")"
-}
-
-grep -qi microsoft /proc/version &&
+if grep -qi 'microsoft' /proc/version; then
+    # open a tab or pane in the same directory (wsl)
+    keep_current_path() {
+      printf "\e]9;9;%s\e\\" "$(wslpath -w "$PWD")"
+    }
+    
     precmd_functions+=(keep_current_path)
+fi

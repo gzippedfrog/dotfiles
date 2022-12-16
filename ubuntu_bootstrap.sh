@@ -5,46 +5,6 @@ grep -qi microsoft /proc/version &&
     IS_WSL=true ||
     IS_WSL=false
 
-# install essential packages
-PACKAGES='
-    zsh
-    neovim 
-    git 
-    stow
-    tldr
-    neofetch
-'
-
-[ ! $IS_WSL ] &&
-    PACKAGES+='
-        gnome-software
-        gnome-sushi
-        gnome-tweaks
-        flatpak
-        gnome-software-plugin-flatpak
-        mpv
-    '
-
-[ -x "$(command -v apt)" ] &&
-    sudo apt update &&
-    sudo apt upgrade &&
-    sudo apt install "$PACKAGES"
-
-STOW_DIRS='zsh git neovim'
-
-[ ! $IS_WSL ] &&
-    STOW_DIRS+=' mpv gnome-ubu picard'
-
-stow -t $HOME $STOW_DIRS
-
-# dont ask current user for a password when using sudo
-echo "$USER ALL=(ALL) NOPASSWD: ALL" | sudo tee --append /etc/sudoers >/dev/null
-
-# generate ssh key
-ssh-keygen -t ed25519
-eval "$(ssh-agent -s)"
-ssh-add $HOME/.ssh/id_ed25519
-cat $HOME/.ssh/id_ed25519.pub
 
 if [ ! $IS_WSL ]; then
     # add flathub repo
