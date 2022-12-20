@@ -62,6 +62,7 @@ z4h init || return
 path=(
 	$path \
 	~/bin \
+    /usr/local/bin \
 	~/.config/composer/vendor/bin
 )
 
@@ -99,62 +100,58 @@ autoload -Uz zmv
 # Define functions and completions.
 function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
 compdef _directories md
+function update_flatpaks_and_snaps() {
+    [ $(command -v flatpak) ] && flatpak update
+    [ $(command -v snap   ) ] && sudo snap refresh
+}
+
 
 # Define named directories: ~w <=> Windows home directory on WSL.
 [[ -z $z4h_win_home ]] || hash -d w=$z4h_win_home
 [[ -z $PROJ_DIR ]] || hash -d proj=$PROJ_DIR
 [[ -z $DOTS_DIR ]] || hash -d dots=$DOTS_DIR
 
-if [ "$(command -v nala)" ]; then
-	PKG_MANAGER=nala
-elif [ "$(command -v apt)" ]; then
-	PKG_MANAGER=apt
-elif [ "$(command -v dnf)" ]; then
-	PKG_MANAGER=apt
-fi
-
 # Define aliases
-alias \
-	tree='tree -a -I .git' \
-	s="sudo" \
-	v=$EDITOR \
-	sv="sudo -e" \
-	la="ls -hla --color=auto --group-directories-first" \
-	lsblk="lsblk | grep -v '^loop'" \
-	ka="killall" \
-	ska="sudo killall" \
-	g="git"
-
-# apt/nala
-#alias \
-#	pm=" sudo $PKG_MANAGER" \
-#	pmi="sudo $PKG_MANAGER install" \
-#	pmu="sudo $PKG_MANAGER update && \
-#		 sudo $PKG_MANAGER upgrade; \
-# 		 [ "$(command -v flatpak)" ] && flatpak update; \
-# 		 [ "$(command -v snap)" ] && sudo snap refresh;" \
-#	pmr="sudo $PKG_MANAGER remove" \
-#	pmp="sudo $PKG_MANAGER purge" \
-#	pma="sudo $PKG_MANAGER autoremove" \
-#	pms="sudo $PKG_MANAGER search"
+alias tree='tree -a -I .git' \
+alias s="sudo" \
+alias v=$EDITOR \
+alias sv="sudo -e" \
+alias la="ls -hla --color=auto --group-directories-first" \
+alias lsblk="lsblk | grep -v '^loop'" \
+alias ka="killall" \
+alias ska="sudo killall" \
+alias g="git"
 
 # dnf
-alias \
-	pm=" sudo $PKG_MANAGER" \
-	pmi="sudo $PKG_MANAGER install" \
-	pmu="sudo $PKG_MANAGER upgrade;
- 		 [ "$(command -v flatpak)" ] && flatpak update;
- 		 [ "$(command -v snap)" ] && sudo snap refresh;" \
-	pmr="sudo $PKG_MANAGER remove" \
-	pmp="sudo $PKG_MANAGER purge" \
-	pma="sudo $PKG_MANAGER autoremove" \
-	pms="sudo $PKG_MANAGER search"
+if (grep -qi "fedora" /proc/version); then
+    alias pm=" sudo dnf"
+    alias pmi="sudo dnf install"
+    alias pmu="sudo dnf update && 
+               update_flatpaks_and_snaps"
+    alias pmr="sudo dnf remove"
+    alias pmp="sudo dnf purge"
+    alias pma="sudo dnf autoremove"
+    alias pms="sudo dnf search"
+fi
 
-# php
-alias \
-	sail='[ -f sail ] && sh sail || sh vendor/bin/sail' \
-	pa='php artisan'
+# apt/nala
+if (grep -qi "ubuntu" /proc/version); then
+    [ "$(command -v nala)" ] &&
+        PKG_MANAGER=nala ||
+    	PKG_MANAGER=apt
 
+    alias pm=" sudo $PKG_MANAGER"
+    alias pmi="sudo $PKG_MANAGER install"
+    alias pmu="sudo $PKG_MANAGER update && 
+               sudo $PKG_MANAGER upgrade && 
+               update_flatpaks_and_snaps"
+    alias pmr="sudo $PKG_MANAGER remove"
+    alias pmp="sudo $PKG_MANAGER purge"
+    alias pma="sudo $PKG_MANAGER autoremove"
+    alias pms="sudo $PKG_MANAGER search"
+fi
+
+alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 
 # Add flags to existing aliases.
 #alias ls="${aliases[ls]:-ls} -A"
@@ -171,3 +168,7 @@ if grep -qi 'microsoft' /proc/version; then
     
     precmd_functions+=(keep_current_path)
 fi
+
+export NVM_DIR="$HOME/.config/nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

@@ -15,38 +15,6 @@ if [ ! $IS_WSL ]; then
 
     # improve font rendering
     # in flatseal add xdg-config/fontconfig:ro
-    FONT_CONFIG='
-    <?xml version="1.0"?>
-    <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
-    <fontconfig>
-        <match target="font">
-        <edit name="autohint" mode="assign">
-            <bool>false</bool>
-        </edit>
-        <edit name="hinting" mode="assign">
-            <bool>false</bool>
-        </edit>
-        <edit name="antialias" mode="assign">
-            <bool>true</bool>
-        </edit>
-        <edit mode="assign" name="hintstyle">
-            <const>hintslight</const>
-        </edit>
-        <edit mode="assign" name="rgba">
-            <const>rgb</const>
-        </edit>
-        <edit mode="assign" name="lcdfilter">
-            <const>lcddefault</const>
-        </edit>
-        </match>
-    </fontconfig>'
-
-    FONT_CONFIG_DIR="$XDG_CONFIG_HOME/fontconfig"
-
-    [ ! -d $FONT_CONFIG_DIR ] &&
-        mkdir -p $FONT_CONFIG_DIR
-
-    echo "$FONT_CONFIG" | sed '/^$/ d' >$FONT_CONFIG_DIR/fonts.conf
 
     XRESOURCES_CONF='
     Xft.antialias: 1
