@@ -58,6 +58,10 @@ zstyle ':z4h:ssh-agent:' start yes
 # perform network I/O must be done above. Everything else is best done below.
 z4h init || return
 
+grep -qi 'wsl' /proc/version &&
+    IS_WSL=true ||
+    IS_WSL=false
+
 # Extend PATH.
 path=(
 	$path \
@@ -101,6 +105,7 @@ autoload -Uz zmv
 function md() { [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" }
 compdef _directories md
 function update_flatpaks_and_snaps() {
+    $IS_WSL && return
     [ $(command -v flatpak) ] && flatpak update
     [ $(command -v snap   ) ] && sudo snap refresh
 }
@@ -135,7 +140,7 @@ if (grep -qi "fedora" /proc/version); then
 fi
 
 # apt/nala
-if (grep -qi "ubuntu" /proc/version); then
+if (grep -qiE "ubuntu|wsl" /proc/version); then
     [ "$(command -v nala)" ] &&
         PKG_MANAGER=nala ||
     	PKG_MANAGER=apt
@@ -160,7 +165,7 @@ alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 setopt glob_dots     # no special treatment for file names with a leading dot
 setopt no_auto_menu  # require an extra TAB press to open the completion menu
 
-if grep -qi 'microsoft' /proc/version; then
+if $IS_WSL; then
     # open a tab or pane in the same directory (wsl)
     keep_current_path() {
       printf "\e]9;9;%s\e\\" "$(wslpath -w "$PWD")"
