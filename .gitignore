@@ -1,4 +1,14 @@
-watch_later
-neovim/.config/nvim/autoload
-neovim/.config/nvim/plugged
-**/*:Zone.Identifier
+# mpv/*
+# !mpv/.config/mpv/scripts
+# !mpv/.config/mpv/mpv.conf
+# !mpv/.config/mpv/input.conf
+
+# neovim
+/neovim/
+!/neovim/.config/nvim/init.vim
+
+# zsh
+/zsh/.config/zsh/*
+!/zsh/.config/zsh/.zshrc
+!/zsh/.config/zsh/.zshenv
+!/zsh/.config/zsh/.p10k.zsh
