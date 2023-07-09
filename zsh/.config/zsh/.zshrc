@@ -94,6 +94,12 @@ function update_flatpaks_and_snaps() {
     [ $(command -v snap) ] && sudo snap refresh
 }
 
+create_dir_and_file() {
+    [ ! -d "$1" ] && mkdir -p "$1" && echo "created missing directory $1"
+    [ ! -f "$1/$2" ] && touch "$1/$2" && echo "created missing file $2"
+    return 0
+}
+
 function md() {
     [[ $# == 1 ]] && mkdir -p -- "$1" && cd -- "$1" 
 }
@@ -101,7 +107,7 @@ function md() {
 compdef _directories md
 
 # Define named directories: ~w <=> Windows home directory on WSL.
-[[ -z $z4h_win_home ]] || hash -d wind=$z4h_win_home
+[[ -z $z4h_win_home ]] || hash -d win=$z4h_win_home
 [[ -z $PROJ_DIR ]] || hash -d proj=$PROJ_DIR
 [[ -z $DOTS_DIR ]] || hash -d dots=$DOTS_DIR
 [[ -z $XDG_CONFIG_HOME ]] || hash -d conf=$XDG_CONFIG_HOME
@@ -115,7 +121,8 @@ alias la="ls -hla --color=auto --group-directories-first"
 alias lsblk="lsblk | grep -v '^loop'"
 alias ka="killall"
 alias ska="sudo killall"
-alias ts="torrserver -d $TORRSERVER_CONFIG"
+alias ts="nohup torrserver -d $TORRSERVER_CONFIG &>/dev/null &"
+alias wget="wget --hsts-file=$XDG_CACHE_HOME/wget-hsts"
 
 # git
 alias gta="git add ."
@@ -160,27 +167,25 @@ fi
 setopt glob_dots    # no special treatment for file names with a leading dot
 setopt no_auto_menu # require an extra TAB press to open the completion menu
 
-# [WSL] Fix tab duplication in windows terminal
-grep -qi 'wsl' /proc/version &&
-    IS_WSL=true ||
-    IS_WSL=false
-
-if $IS_WSL; then
-    keep_current_path() {
-        printf "\e]9;9;%s\e\\" "$(wslpath -w "$PWD")"
-    }
-
-    precmd_functions+=(keep_current_path)
-fi
-
 # Load nvm
 [ -s "$NVM_CONFIG/nvm.sh" ] && \. "$NVM_CONFIG/nvm.sh"
 
-# Start torrserver
-if (command -v torrserver &> /dev/null); then
-    [ ! -d $TORRSERVER_CONFIG ] &&
-        mkdir $TORRSERVER_CONFIG
-
-    [ ! "$(pgrep torrserver &> /dev/null)" ] &&
-        (nohup torrserver -d $TORRSERVER_CONFIG &>/dev/null &)
+# Fix wsl tab duplication in windows terminal
+if uname -r | grep -qi 'WSL'; then
+    keep_current_path() { 
+        printf "\e]9;9;%s\e\\" "$(wslpath -w "$PWD")" 
+    }
+    precmd_functions+=(keep_current_path)
 fi
+
+# Start torrserver
+if (! command -v torrserver &> /dev/null); then
+    mkdir -p $HOME/.local/bin
+    curl -fSL https://github.com/YouROK/TorrServer/releases/latest/download/TorrServer-linux-arm64 -o "$_"/torrserver
+    chmod +x $_
+fi
+[ ! -d $TORRSERVER_CONFIG ] && mkdir $TORRSERVER_CONFIG
+[ ! "$(pgrep torrserver &> /dev/null)" ] && (nohup torrserver -d "$TORRSERVER_CONFIG" &>/dev/null &)
+
+# Create config for wget
+create_dir_and_file "$XDG_CONFIG_HOME"/wget wgetrc

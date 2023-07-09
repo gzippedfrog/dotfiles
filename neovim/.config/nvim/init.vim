@@ -13,6 +13,8 @@ let mapleader =" "
 
 syntax on
 
+set bg=dark
+
 " Use system clipboard
 set clipboard+=unnamedplus
 
