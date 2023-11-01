@@ -50,7 +50,7 @@ zstyle ':z4h:ssh-agent:' start yes
 # This doesn't do anything apart from cloning the repository and keeping it
 # up-to-date. Cloned files can be used after `z4h init`. This is just an
 # example. If you don't plan to use Oh My Zsh, delete this line.
-z4h install ohmyzsh/ohmyzsh || return
+# z4h install ohmyzsh/ohmyzsh || return
 
 # Install or update core components (fzf, zsh-autosuggestions, etc.) and
 # initialize Zsh. After this point console I/O is unavailable until Zsh
@@ -68,9 +68,7 @@ path=( \
 export GPG_TTY=$TTY
 export XDG_CONFIG_HOME="$HOME"/.config
 export DOTS_DIR="$XDG_CONFIG_HOME"/dotfiles
-export TORRSERVER_CONFIG="$XDG_CONFIG_HOME"/torrserver
-export NVM_DIR="$HOME"/.nvm
-export PROJ_DIR="$HOME"/Projects
+export DEV_DIR="$HOME"/dev
 export EDITOR=nvim
 
 # Source additional local files if they exist.
@@ -108,45 +106,44 @@ function update_flatpaks_and_snaps() {
 
 # Define named directories: ~w <=> Windows home directory on WSL.
 [[ -z $z4h_win_home ]] || hash -d win=$z4h_win_home
-[[ -z $PROJ_DIR ]] || hash -d proj=$PROJ_DIR
+[[ -z $DEV_DIR ]] || hash -d dev=$DEV_DIR
 [[ -z $DOTS_DIR ]] || hash -d dots=$DOTS_DIR
 [[ -z $XDG_CONFIG_HOME ]] || hash -d conf=$XDG_CONFIG_HOME
 
 # Define aliases
-alias tree="tree -a -I .git"
-alias s="sudo"
+alias tree='tree -a -I .git'
+alias s='sudo'
 alias v="$EDITOR"
-alias sv="sudo -e"
-alias la="ls -hla --color=auto --group-directories-first"
-alias lsblk="lsblk | grep -v '^loop'"
-alias ka="killall"
-alias ska="sudo killall"
-alias ts="nohup torrserver -d $TORRSERVER_CONFIG &>/dev/null &"
-alias sail="[ -f sail ] && sh sail || sh vendor/bin/sail"
+alias sv='sudo -e'
+alias la='ls -hla --color=auto --group-directories-first'
+alias lsblk='lsblk | grep -v '^loop''
+alias ka='killall'
+alias ska='sudo killall'
+alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
 
 # dnf
 if (grep -qi "fedora" /proc/version); then
-    alias pm=" sudo dnf"
-    alias pmi="sudo dnf install"
-    alias pmu="sudo dnf update && update_flatpaks_and_snaps"
-    alias pmr="sudo dnf remove"
-    alias pmp="sudo dnf purge"
-    alias pma="sudo dnf autoremove"
-    alias pms="sudo dnf search"
+    alias pm=' sudo dnf'
+    alias pmi='sudo dnf install'
+    alias pmu='sudo dnf update && update_flatpaks_and_snaps'
+    alias pmr='sudo dnf remove'
+    alias pmp='sudo dnf purge'
+    alias pma='sudo dnf autoremove'
+    alias pms='sudo dnf search'
 fi
 
 # apt/nala
 if (grep -qiE "ubuntu|wsl" /proc/version); then
-    [ "$(command -v nala)" ] &&
-        alias pm="sudo nala" ||
-        alias pm="sudo apt"
+    [ "$(command -v nala)" ] \
+        && alias pm="sudo nala" \
+        || alias pm="sudo apt"
 
-    alias pmi="pm install"
-    alias pmu="pm update && pm upgrade && update_flatpaks_and_snaps"
-    alias pmr="pm remove"
-    alias pmp="pm purge"
-    alias pma="pm autoremove"
-    alias pms="pm search"
+    alias pmi='pm install'
+    alias pmu='pm update && pm upgrade && update_flatpaks_and_snaps'
+    alias pmr='pm remove'
+    alias pmp='pm purge'
+    alias pma='pm autoremove'
+    alias pms='pm search'
 fi
 
 # Add flags to existing aliases.
@@ -155,29 +152,3 @@ alias ls="${aliases[ls]:-ls} -A"
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
 setopt glob_dots     # no special treatment for file names with a leading dot
 setopt no_auto_menu  # require an extra TAB press to open the completion menu
-
-# Load nvm
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Fix wsl tab duplication in windows terminal
-if uname -r | grep -qi 'WSL'; then
-    keep_current_path() { 
-        printf "\e]9;9;%s\e\\" "$(wslpath -w "$PWD")" 
-    }
-    precmd_functions+=(keep_current_path)
-fi
-
-# Start torrserver
-if (! command -v torrserver &> /dev/null); then
-    mkdir -p $HOME/.local/bin
-    curl -fSL https://github.com/YouROK/TorrServer/releases/latest/download/TorrServer-linux-amd64 -o "$_"/torrserver
-    chmod +x $_
-fi
-[ ! -d $TORRSERVER_CONFIG ] && mkdir $TORRSERVER_CONFIG
-[ ! "$(pgrep torrserver &> /dev/null)" ] && (nohup torrserver -d "$TORRSERVER_CONFIG" &>/dev/null &)
-
-# BEGIN SNIPPET: Platform.sh CLI configuration
-HOME=${HOME:-'/home/gzfrog'}
-export PATH="$HOME/"'.platformsh/bin':"$PATH"
-if [ -f "$HOME/"'.platformsh/shell-config.rc' ]; then . "$HOME/"'.platformsh/shell-config.rc'; fi # END SNIPPET
