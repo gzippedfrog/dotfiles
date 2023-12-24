@@ -42,9 +42,6 @@ zstyle ':z4h:ssh:*'                   enable 'no'
 # enabled hosts.
 zstyle ':z4h:ssh:*' send-extra-files '~/.nanorc' '~/.env.zsh'
 
-# Start ssh-agent if it's not running yet.
-zstyle ':z4h:ssh-agent:' start yes
-
 # Clone additional Git repositories from GitHub.
 #
 # This doesn't do anything apart from cloning the repository and keeping it
@@ -66,9 +63,9 @@ path=( \
 
 # Export environment variables.
 export GPG_TTY=$TTY
-export XDG_CONFIG_HOME="$HOME"/.config
-export DOTS_DIR="$XDG_CONFIG_HOME"/dotfiles
-export DEV_DIR="$HOME"/dev
+export XDG_CONFIG_HOME="$HOME/.config"
+export DOTS_DIR="$XDG_CONFIG_HOME/dotfiles"
+export DEV_DIR="$HOME/Development"
 export EDITOR=nvim
 
 # Source additional local files if they exist.
@@ -110,26 +107,26 @@ function update_flatpaks_and_snaps() {
 [[ -z $DOTS_DIR ]] || hash -d dots=$DOTS_DIR
 [[ -z $XDG_CONFIG_HOME ]] || hash -d conf=$XDG_CONFIG_HOME
 
-# Define aliases
-alias tree='tree -a -I .git'
-alias s='sudo'
-alias v="$EDITOR"
-alias sv='sudo -e'
-alias la='ls -hla --color=auto --group-directories-first'
-alias lsblk='lsblk | grep -v '^loop''
-alias ka='killall'
-alias ska='sudo killall'
-alias sail='[ -f sail ] && sh sail || sh vendor/bin/sail'
+# Define aliases.
+alias tree="tree -a -I .git"
+alias s="sudo"
+alias v=$EDITOR
+alias sv="sudo -e"
+alias la="ls -hla --color=auto --group-directories-first"
+alias lsblk="lsblk | grep -v '^loop'"
+alias ka="killall"
+alias ska="sudo killall"
+alias sail="[ -f sail ] && sh sail || sh vendor/bin/sail"
 
 # dnf
 if (grep -qi "fedora" /proc/version); then
-    alias pm=' sudo dnf'
-    alias pmi='sudo dnf install'
-    alias pmu='sudo dnf update && update_flatpaks_and_snaps'
-    alias pmr='sudo dnf remove'
-    alias pmp='sudo dnf purge'
-    alias pma='sudo dnf autoremove'
-    alias pms='sudo dnf search'
+    alias pm=" sudo dnf"
+    alias pmi="sudo dnf install"
+    alias pmu="sudo dnf update && update_flatpaks_and_snaps"
+    alias pmr="sudo dnf remove"
+    alias pmp="sudo dnf purge"
+    alias pma="sudo dnf autoremove"
+    alias pms="sudo dnf search"
 fi
 
 # apt/nala
@@ -138,12 +135,12 @@ if (grep -qiE "ubuntu|wsl" /proc/version); then
         && alias pm="sudo nala" \
         || alias pm="sudo apt"
 
-    alias pmi='pm install'
-    alias pmu='pm update && pm upgrade && update_flatpaks_and_snaps'
-    alias pmr='pm remove'
-    alias pmp='pm purge'
-    alias pma='pm autoremove'
-    alias pms='pm search'
+    alias pmi="pm install"
+    alias pmu="pm update && pm upgrade && update_flatpaks_and_snaps"
+    alias pmr="pm remove"
+    alias pmp="pm purge"
+    alias pma="pm autoremove"
+    alias pms="pm search"
 fi
 
 # Add flags to existing aliases.
