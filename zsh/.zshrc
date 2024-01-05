@@ -57,7 +57,8 @@ z4h init || return
 
 # Extend PATH.
 path=( \
-    $HOME/.local/bin \
+    ~/.local/bin \
+    ~/.symfony5/bin \
     $path \
 )
 
@@ -67,6 +68,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export DOTS_DIR="$XDG_CONFIG_HOME/dotfiles"
 export DEV_DIR="$HOME/Development"
 export EDITOR=nvim
+export NVM_DIR="$HOME/.config/nvm"
 
 # Source additional local files if they exist.
 # z4h source ~/.env.zsh
@@ -117,9 +119,10 @@ alias lsblk="lsblk | grep -v '^loop'"
 alias ka="killall"
 alias ska="sudo killall"
 alias sail="[ -f sail ] && sh sail || sh vendor/bin/sail"
+alias docker-compose="docker compose"
 
 # dnf
-if (grep -qi "fedora" /proc/version); then
+if (grep -qiE "fedora|red hat" /proc/version); then
     alias pm=" sudo dnf"
     alias pmi="sudo dnf install"
     alias pmu="sudo dnf update && update_flatpaks_and_snaps"
@@ -149,3 +152,6 @@ alias ls="${aliases[ls]:-ls} -A"
 # Set shell options: http://zsh.sourceforge.net/Doc/Release/Options.html.
 setopt glob_dots     # no special treatment for file names with a leading dot
 setopt no_auto_menu  # require an extra TAB press to open the completion menu
+
+[ -s "$NVM_DIR/nvm.sh" ]          && \. "$NVM_DIR/nvm.sh"           # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
