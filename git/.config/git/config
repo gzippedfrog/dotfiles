@@ -1,3 +1,5 @@
 [user]
 	name = gzippedfrog
-	email = gzippedfrog@outlook.com
+	email = gzippedfrog@icloud.com
+[push]
+	autoSetupRemote = true
