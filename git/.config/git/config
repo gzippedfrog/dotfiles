@@ -3,3 +3,5 @@
 	email = gzippedfrog@icloud.com
 [push]
 	autoSetupRemote = true
+[init]
+	defaultBranch = master
